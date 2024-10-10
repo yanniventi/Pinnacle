@@ -1,11 +1,19 @@
+import { Helmet } from "react-helmet";
+import Footer from "./components/ui/footer";
 import Header from "./components/ui/header";
 
 const Contact = () => {
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Contact · Pinnacle Accountants</title>
+      </Helmet>
       <Header />
-      Contact
-    </div>
+      <main className="mx-auto flex max-w-[1920px] flex-col gap-32">
+        Contact
+      </main>
+      <Footer />
+    </>
   );
 };
 

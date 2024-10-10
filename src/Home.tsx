@@ -1,5 +1,6 @@
+import { Helmet } from "react-helmet";
 import Splash from "./assets/home_splash.jpg";
-import Footer from "./components/footer";
+import Footer from "./components/ui/footer";
 import Header from "./components/ui/header";
 
 function Home() {
@@ -37,6 +38,9 @@ function Home() {
   ];
   return (
     <>
+      <Helmet>
+        <title>Home · Pinnacle Accountants</title>
+      </Helmet>
       <Header />
       <main className="mx-auto flex max-w-[1920px] flex-col gap-32">
         <section className="flex min-h-svh flex-col justify-center gap-32 px-6 py-48 md:px-16 md:py-64">
@@ -72,7 +76,7 @@ function Home() {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer cta />
     </>
   );
 }

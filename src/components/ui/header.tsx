@@ -3,7 +3,7 @@ import { Button } from "./button";
 
 const Header = () => {
   return (
-    <header className="fixed inset-x-0 top-0">
+    <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto flex w-full max-w-[1920px] justify-between p-6 md:px-16 md:py-8">
         <Link className="font-serif text-4xl font-bold text-slate-900" to="/">
           Pinnacle
