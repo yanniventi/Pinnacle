@@ -75,6 +75,13 @@ function Home() {
             ))}
           </div>
         </section>
+        <section className="flex flex-col gap-32 bg-slate-900 px-6 py-32 md:px-16">
+          <div>
+            <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+              Trusted by Industry Leaders
+            </h2>
+          </div>
+        </section>
       </main>
       <Footer cta />
     </>
