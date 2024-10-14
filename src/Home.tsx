@@ -1,5 +1,12 @@
 import { Helmet } from "react-helmet";
 import Splash from "./assets/home_splash.jpg";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./components/ui/carousel";
 import Footer from "./components/ui/footer";
 import Header from "./components/ui/header";
 
@@ -76,10 +83,28 @@ function Home() {
           </div>
         </section>
         <section className="flex flex-col gap-32 bg-slate-900 px-6 py-32 md:px-16">
-          <div>
+          <div className="flex flex-col gap-8">
             <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
               Trusted by Industry Leaders
             </h2>
+            <Carousel className="w-full overflow-hidden">
+              <div className="flex w-full flex-wrap items-center justify-between gap-8">
+                <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+                  What our clients say
+                </h2>
+                <div>
+                  <CarouselPrevious className="mr-3" />
+                  <CarouselNext />
+                </div>
+              </div>
+              <CarouselContent>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <CarouselItem key={index}>
+                    <div className="p-1 text-slate-50">test</div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         </section>
       </main>
