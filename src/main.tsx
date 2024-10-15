@@ -1,3 +1,4 @@
+import { ReactLenis } from "lenis/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "react-material-symbols/outlined";
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ReactLenis root options={{ duration: 0.8 }}>
+      <RouterProvider router={router} />
+    </ReactLenis>
   </StrictMode>,
 );

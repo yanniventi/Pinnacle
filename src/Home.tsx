@@ -5,7 +5,6 @@ import {
   useMotionValue,
   useMotionValueEvent,
   useScroll,
-  useSpring,
   useVelocity,
 } from "framer-motion";
 import { HtmlHTMLAttributes, useState } from "react";
@@ -233,7 +232,6 @@ function Home() {
   const { scrollY } = useScroll();
   const x1 = useMotionValue(0);
   const scrollVelocity = useVelocity(scrollY);
-  const scrollSpring = useSpring(scrollVelocity, { damping: 30 });
   const transform = useMotionTemplate`${x1}%`;
   const direction = scrollingDown ? -1 : 1;
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -254,7 +252,9 @@ function Home() {
     } else if (currentOffset > 0) {
       x1.set(-50);
     } else {
-      x1.set(currentOffset + 0.01 * direction - 0.000025 * scrollSpring.get());
+      x1.set(
+        currentOffset + 0.01 * direction - 0.000025 * scrollVelocity.get(),
+      );
     }
   });
 
@@ -422,41 +422,45 @@ function Home() {
             </Carousel>
           </div>
         </section>
-        <HomeSection className="relative flex flex-col gap-16 overflow-x-hidden">
-          <div className="flex flex-wrap gap-16">
-            <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-              A team dedicated to your success
-            </h2>
-            <div className="max-w-sm">
-              <p className="mb-6 text-slate-700">
-                Our team of certified accountants and tax advisors is dedicated
-                to providing accurate, timely, and personalized financial
-                services. We understand the unique business environment in
-                Singapore and are committed to helping our clients navigate the
-                complexities of regulatory compliance.
-              </p>
-              <TextButton to="/about">Find out more</TextButton>
+        <HomeSection className="relative mx-0 max-w-none overflow-x-hidden">
+          <div className="mx-auto flex max-w-[1920px] flex-col gap-16">
+            <div className="flex flex-wrap gap-16">
+              <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
+                A team dedicated to your success
+              </h2>
+              <div className="max-w-sm">
+                <p className="mb-6 text-slate-700">
+                  Our team of certified accountants and tax advisors is
+                  dedicated to providing accurate, timely, and personalized
+                  financial services. We understand the unique business
+                  environment in Singapore and are committed to helping our
+                  clients navigate the complexities of regulatory compliance.
+                </p>
+                <TextButton to="/about">Find out more</TextButton>
+              </div>
             </div>
+            <Carousel opts={{ skipSnaps: true }}>
+              <CarouselContent className="-ml-16 flex">
+                {employees.map((employee) => (
+                  <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-1/3">
+                    <AspectRatio ratio={4 / 5}>
+                      <img
+                        src={employee.img}
+                        alt={employee.name}
+                        className="size-full object-cover"
+                      />
+                    </AspectRatio>
+                    <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
+                      {employee.name}
+                    </p>
+                    <p className="text-lg text-slate-700">
+                      {employee.position}
+                    </p>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
-          <Carousel opts={{ skipSnaps: true }}>
-            <CarouselContent className="-ml-16 flex">
-              {employees.map((employee) => (
-                <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-1/3">
-                  <AspectRatio ratio={4 / 5}>
-                    <img
-                      src={employee.img}
-                      alt={employee.name}
-                      className="size-full object-cover"
-                    />
-                  </AspectRatio>
-                  <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
-                    {employee.name}
-                  </p>
-                  <p className="text-lg text-slate-700">{employee.position}</p>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
         </HomeSection>
         <HomeSection className="relative overflow-x-hidden">
           <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
