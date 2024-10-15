@@ -42,9 +42,11 @@ import David from "./assets/David.jpg";
 import Rachel from "./assets/Rachel.png";
 import Samantha from "./assets/Samantha.png";
 
+import { Link } from "react-router-dom";
 import Insight1 from "./assets/insight1.png";
 import Insight2 from "./assets/insight2.png";
 import Insight3 from "./assets/insight3.png";
+import { AspectRatio } from "./components/ui/aspect-ratio";
 
 const HomeSection = ({
   children,
@@ -59,134 +61,134 @@ const HomeSection = ({
   );
 };
 
+const unlocks = [
+  {
+    title: "Expert Knowledge and Compliance",
+    description:
+      "Our team of certified accountants and tax advisors brings a deep understanding of Singapore's regulatory landscape. We ensure your business stays compliant, avoiding costly penalties and fines.",
+  },
+  {
+    title: "Cost Savings",
+    description:
+      "By leveraging our strategic tax planning and risk management services, we help you minimize tax liabilities and maximize profitability. Our efficient processes and expert advice can lead to significant cost savings, making our services a valuable investment.",
+  },
+  {
+    title: "Tailored Solutions",
+    description:
+      "We offer personalized financial advice and solutions tailored to your specific business needs. Whether it's bookkeeping, financial reporting, or corporate secretarial services, we provide the expertise you need to thrive.",
+  },
+  {
+    title: "Technology Integration",
+    description:
+      "Our cloud-based accounting solutions give you real-time access to your financial data, enhancing transparency and enabling better decision-making.",
+  },
+];
+
+const services = [
+  {
+    service: "Accounting",
+    description:
+      "We help businesses maintain accurate financial records and ensure compliance with regulatory requirements.",
+  },
+  {
+    service: "Taxation Services",
+    description:
+      "Navigating the complex tax landscape and ensure regulatory compliance and minimises your tax liabilities.",
+  },
+  {
+    service: "Auditing Services",
+    description:
+      "Our auditing services provide an independent and objective assessment of your financial statements, ensuring accuracy and compliance",
+  },
+  {
+    service: "Corporate Secretarial Services",
+    description:
+      "Stay compliant with ACRA regulations with services such as annual returns filing and corporate governance.",
+  },
+  {
+    service: "Advisory Services",
+    description:
+      "Services such as financial planning and risk management designed to support your business growth and strategic planning.",
+  },
+  {
+    service: "Cloud-Based Accounting",
+    description:
+      "Embrace the future and get access to real-time financial data and automate your accounting processes.",
+  },
+];
+
+const companies = [
+  { img: Carousell, alt: "Carousell" },
+  { img: CBTL, alt: "Coffee Bean and Tea Leaf" },
+  { img: Courts, alt: "Courts" },
+  { img: Creative, alt: "Creative" },
+  { img: Ijooz, alt: "Ijooz" },
+  { img: Mediacorp, alt: "Mediacorp" },
+  { img: Mrbean, alt: "Mr Bean" },
+  { img: Pokka, alt: "Pokka" },
+  { img: Singtel, alt: "Singtel" },
+  { img: Sph, alt: "Singapore Press Holdings" },
+  { img: TigerBalm, alt: "Tiger Balm" },
+  { img: TigerBeer, alt: "Tiger Beer" },
+  { img: Zalora, alt: "Zalora" },
+];
+
+const testimonials = [
+  {
+    name: "Alex Tan",
+    position: "CEO, Tech Innovators Pte Ltd",
+    quote:
+      "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
+    img: Alex,
+  },
+  {
+    name: "Rachel Lim",
+    position: "CFO, Green Solutions Ltd",
+    quote:
+      "“We have been working with Pinnacle Accountants LLP for over a decade, and their service has always been exceptional. Their cloud-based accounting solutions have transformed the way we manage our finances, providing us with real-time insights and greater control over our financial data. I highly recommend their services to any business looking for reliable and innovative accounting support.”",
+    img: Rachel,
+  },
+  {
+    name: "Samantha Ng",
+    position: "Founder, Creative Ventures Pte Ltd",
+    quote:
+      "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
+    img: Samantha,
+  },
+  {
+    name: "David Lee",
+    position: "Managing Director, Lee & Co.",
+    quote:
+      "“The team at Pinnacle Accountants LLP is incredibly knowledgeable and dedicated. They have helped us navigate complex auditing processes with ease and provided valuable advice on improving our internal controls. Their attention to detail and commitment to excellence is truly commendable.”",
+    img: David,
+  },
+];
+
+const insights = [
+  {
+    img: Insight1,
+    title: "Maximizing Tax Efficiency: Strategies for Medium-Sized Businesses",
+    description:
+      "October 24, 2024 - Discover how medium-sized businesses can optimize their tax strategies to reduce liabilities and increase profitability.",
+    tag: "Tax Strategies",
+  },
+  {
+    img: Insight2,
+    title: "The Future of Accounting: Embracing Cloud-Based Solutions",
+    description:
+      "October 12, 2024 - Learn about the transformative power of cloud-based accounting solutions and how they can enhance your business operations.",
+    tag: "Technology",
+  },
+  {
+    img: Insight3,
+    title: "Navigating Regulatory Compliance: A Guide for Singapore Businesses",
+    description:
+      "September 25, 2024 - Avoid common pitfalls and stay compliant with regulatory bodies like IRAS and ACRA is crucial for business success.",
+    tag: "Compliance",
+  },
+];
+
 function Home() {
-  const unlocks = [
-    {
-      title: "Expert Knowledge and Compliance",
-      description:
-        "Our team of certified accountants and tax advisors brings a deep understanding of Singapore's regulatory landscape. We ensure your business stays compliant, avoiding costly penalties and fines.",
-    },
-    {
-      title: "Cost Savings",
-      description:
-        "By leveraging our strategic tax planning and risk management services, we help you minimize tax liabilities and maximize profitability. Our efficient processes and expert advice can lead to significant cost savings, making our services a valuable investment.",
-    },
-    {
-      title: "Tailored Solutions",
-      description:
-        "We offer personalized financial advice and solutions tailored to your specific business needs. Whether it's bookkeeping, financial reporting, or corporate secretarial services, we provide the expertise you need to thrive.",
-    },
-    {
-      title: "Technology Integration",
-      description:
-        "Our cloud-based accounting solutions give you real-time access to your financial data, enhancing transparency and enabling better decision-making.",
-    },
-  ];
-  const services = [
-    {
-      service: "Accounting",
-      description:
-        "We help businesses maintain accurate financial records and ensure compliance with regulatory requirements.",
-    },
-    {
-      service: "Taxation Services",
-      description:
-        "Navigating the complex tax landscape and ensure regulatory compliance and minimises your tax liabilities.",
-    },
-    {
-      service: "Auditing Services",
-      description:
-        "Our auditing services provide an independent and objective assessment of your financial statements, ensuring accuracy and compliance",
-    },
-    {
-      service: "Corporate Secretarial Services",
-      description:
-        "Stay compliant with ACRA regulations with services such as annual returns filing and corporate governance.",
-    },
-    {
-      service: "Advisory Services",
-      description:
-        "Services such as financial planning and risk management designed to support your business growth and strategic planning.",
-    },
-    {
-      service: "Cloud-Based Accounting",
-      description:
-        "Embrace the future and get access to real-time financial data and automate your accounting processes.",
-    },
-  ];
-  const companies = [
-    { img: Carousell, alt: "Carousell" },
-    { img: CBTL, alt: "Coffee Bean and Tea Leaf" },
-    { img: Courts, alt: "Courts" },
-    { img: Creative, alt: "Creative" },
-    { img: Ijooz, alt: "Ijooz" },
-    { img: Mediacorp, alt: "Mediacorp" },
-    { img: Mrbean, alt: "Mr Bean" },
-    { img: Pokka, alt: "Pokka" },
-    { img: Singtel, alt: "Singtel" },
-    { img: Sph, alt: "Singapore Press Holdings" },
-    { img: TigerBalm, alt: "Tiger Balm" },
-    { img: TigerBeer, alt: "Tiger Beer" },
-    { img: Zalora, alt: "Zalora" },
-  ];
-
-  const testimonials = [
-    {
-      name: "Alex Tan",
-      position: "CEO, Tech Innovators Pte Ltd",
-      quote:
-        "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
-      img: Alex,
-    },
-    {
-      name: "Rachel Lim",
-      position: "CFO, Green Solutions Ltd",
-      quote:
-        "“We have been working with Pinnacle Accountants LLP for over a decade, and their service has always been exceptional. Their cloud-based accounting solutions have transformed the way we manage our finances, providing us with real-time insights and greater control over our financial data. I highly recommend their services to any business looking for reliable and innovative accounting support.”",
-      img: Rachel,
-    },
-    {
-      name: "Samantha Ng",
-      position: "Founder, Creative Ventures Pte Ltd",
-      quote:
-        "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
-      img: Samantha,
-    },
-    {
-      name: "David Lee",
-      position: "Managing Director, Lee & Co.",
-      quote:
-        "“The team at Pinnacle Accountants LLP is incredibly knowledgeable and dedicated. They have helped us navigate complex auditing processes with ease and provided valuable advice on improving our internal controls. Their attention to detail and commitment to excellence is truly commendable.”",
-      img: David,
-    },
-  ];
-
-  const insights = [
-    {
-      img: Insight1,
-      title:
-        "Maximizing Tax Efficiency: Strategies for Medium-Sized Businesses",
-      description:
-        "October 24, 2024 - Discover how medium-sized businesses can optimize their tax strategies to reduce liabilities and increase profitability.",
-      tag: "Tax Strategies",
-    },
-    {
-      img: Insight2,
-      title: "The Future of Accounting: Embracing Cloud-Based Solutions",
-      description:
-        "October 12, 2024 - Learn about the transformative power of cloud-based accounting solutions and how they can enhance your business operations.",
-      tag: "Technology",
-    },
-    {
-      img: Insight3,
-      title:
-        "Navigating Regulatory Compliance: A Guide for Singapore Businesses",
-      description:
-        "September 25, 2024 - Avoid common pitfalls and stay compliant with regulatory bodies like IRAS and ACRA is crucial for business success.",
-      tag: "Compliance",
-    },
-  ];
-
   const [scrollingDown, setScrollingDown] = useState(true);
   const { scrollY } = useScroll();
   const x1 = useMotionValue(0);
@@ -222,7 +224,7 @@ function Home() {
         <title>Home · Pinnacle Accountants</title>
       </Helmet>
       <Header />
-      <main className="flex flex-col gap-32">
+      <main className="relative flex flex-col gap-32 overflow-x-hidden">
         <HomeSection className="flex min-h-svh w-full flex-col justify-center gap-32 py-48 md:py-64">
           <h1 className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl">
             Empowering Clients with Reliability and Precision
@@ -237,7 +239,7 @@ function Home() {
           <img
             src={Splash}
             alt="Splash image of Blue mountains"
-            className="absolute inset-0 -z-10 size-full object-cover"
+            className="absolute inset-x-0 top-0 -z-10 size-full max-h-svh object-cover"
           />
         </HomeSection>
         <HomeSection className="flex flex-col gap-16 lg:flex-row">
@@ -316,82 +318,123 @@ function Home() {
           </div>
         </HomeSection>
         <section className="bg-slate-900 py-32">
-          <div className="flex flex-col gap-32">
+          <div className="mx-auto flex max-w-[1920px] flex-col gap-32">
             <div className="w-full">
-              <h2 className="mx-auto mb-8 max-w-[1920px] text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl">
+              <h2 className="mb-8 text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl">
                 Trusted by Industry Leaders
               </h2>
-              <motion.div className="absolute inset-x-0 overflow-x-hidden">
-                <motion.div
-                  className="flex w-fit gap-8"
-                  style={{ translateX: transform }}
-                >
-                  {[...companies, ...companies].map((company) => (
-                    <div className="flex size-32 items-center justify-center md:size-64">
-                      <img
-                        src={company.img}
-                        alt={company.alt}
-                        className="w-3/5 object-contain"
-                      />
-                    </div>
-                  ))}
-                </motion.div>
+              <motion.div
+                className="flex w-fit gap-8"
+                style={{ translateX: transform }}
+              >
+                {[...companies, ...companies].map((company) => (
+                  <div className="flex size-32 items-center justify-center md:size-64">
+                    <img
+                      src={company.img}
+                      alt={company.alt}
+                      className="w-3/5 object-contain"
+                    />
+                  </div>
+                ))}
               </motion.div>
-              <div className="h-32 w-full md:h-64"></div>
             </div>
             <Carousel
               opts={{ align: "center", loop: true }}
-              className="overflow-x-hidden px-6 md:px-16"
+              className="px-6 md:px-16"
             >
-              <div className="mx-auto max-w-[1920px]">
-                <div className="mb-8 flex flex-wrap items-center justify-between gap-8 md:mb-16">
-                  <h2 className="font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-                    What our clients say
-                  </h2>
-                  <div>
-                    <CarouselPrevious className="mr-3" />
-                    <CarouselNext />
-                  </div>
+              <div className="mb-8 flex flex-wrap items-center justify-between gap-8 md:mb-16">
+                <h2 className="font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+                  What our clients say
+                </h2>
+                <div>
+                  <CarouselPrevious className="mr-3" />
+                  <CarouselNext />
                 </div>
-                <CarouselContent>
-                  {testimonials.map((testimony) => (
-                    <CarouselItem className="lg:basis-5/6 2xl:basis-2/3">
-                      <div className="flex h-full flex-col gap-12 bg-zinc-50 p-8 md:flex-row">
-                        <div className="aspect-square md:aspect-[2/3] md:h-[460px]">
-                          <img
-                            src={testimony.img}
-                            alt={testimony.name}
-                            className="size-full object-cover"
-                          />
-                        </div>
-                        <div className="flex flex-1 flex-col justify-between">
-                          <p className="mb-12 text-slate-900 md:text-xl">
-                            {testimony.quote}
+              </div>
+              <CarouselContent>
+                {testimonials.map((testimony) => (
+                  <CarouselItem className="lg:basis-5/6 2xl:basis-2/3">
+                    <div className="flex h-full flex-col gap-12 bg-zinc-50 p-8 md:flex-row">
+                      <div className="aspect-square md:aspect-[2/3] md:h-[460px]">
+                        <img
+                          src={testimony.img}
+                          alt={testimony.name}
+                          className="size-full object-cover"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col justify-between">
+                        <p className="mb-12 text-slate-900 md:text-xl">
+                          {testimony.quote}
+                        </p>
+                        <div>
+                          <p className="mb-2 font-serif text-4xl font-medium text-slate-900">
+                            {testimony.name}
                           </p>
-                          <div>
-                            <p className="mb-2 font-serif text-4xl font-medium text-slate-900">
-                              {testimony.name}
-                            </p>
-                            <p className="text-lg font-medium text-slate-700">
-                              {testimony.position}
-                            </p>
-                          </div>
+                          <p className="text-lg font-medium text-slate-700">
+                            {testimony.position}
+                          </p>
                         </div>
                       </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
             </Carousel>
           </div>
         </section>
         <HomeSection>
-          <div className="flex flex-wrap items-center justify-between gap-8">
+          <div className="flex flex-wrap gap-16">
+            <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
+              A team dedicated to your success
+            </h2>
+            <div className="max-w-sm">
+              <p className="mb-6 text-slate-700">
+                Our team of certified accountants and tax advisors is dedicated
+                to providing accurate, timely, and personalized financial
+                services. We understand the unique business environment in
+                Singapore and are committed to helping our clients navigate the
+                complexities of regulatory compliance.
+              </p>
+              <TextButton to="">Find out more</TextButton>
+            </div>
+          </div>
+        </HomeSection>
+        <HomeSection>
+          <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
             <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
               Recent Insights
             </h2>
             <TextButton to="">View insights</TextButton>
           </div>
+          <Carousel
+            opts={{ breakpoints: { "(min-width: 1024px)": { active: false } } }}
+          >
+            <CarouselContent className="-ml-6">
+              {insights.map((insight) => (
+                <CarouselItem className="basis-11/12 pl-6 sm:basis-2/3 lg:basis-1/3">
+                  <Link
+                    to=""
+                    className="flex h-full flex-col gap-6 border border-slate-200 p-6 transition-all hover:bg-white hover:shadow-md"
+                  >
+                    <AspectRatio ratio={3 / 2}>
+                      <img
+                        src={insight.img}
+                        alt={insight.title}
+                        className="size-full object-cover"
+                      />
+                    </AspectRatio>
+                    <p className="font-serif text-2xl font-medium text-blue-700">
+                      {insight.title}
+                    </p>
+                    <p className="text-slate-700">{insight.description}</p>
+                    <p className="text-sm font-medium text-slate-700">
+                      {insight.tag}
+                    </p>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </HomeSection>
       </main>
       <Footer cta />
