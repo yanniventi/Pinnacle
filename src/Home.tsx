@@ -10,6 +10,8 @@ import {
 } from "framer-motion";
 import { HtmlHTMLAttributes, useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { AspectRatio } from "./components/ui/aspect-ratio";
 import {
   Carousel,
   CarouselContent,
@@ -42,11 +44,16 @@ import David from "./assets/David.jpg";
 import Rachel from "./assets/Rachel.png";
 import Samantha from "./assets/Samantha.png";
 
-import { Link } from "react-router-dom";
+import Cara from "./assets/Cara.png";
+import DavidLim from "./assets/David.png";
+import KahEng from "./assets/KahEng.png";
+import KuanMeng from "./assets/KuanMeng.png";
+import LipHow from "./assets/LipHow.png";
+import PohLing from "./assets/PohLing.png";
+
 import Insight1 from "./assets/insight1.png";
 import Insight2 from "./assets/insight2.png";
 import Insight3 from "./assets/insight3.png";
-import { AspectRatio } from "./components/ui/aspect-ratio";
 
 const HomeSection = ({
   children,
@@ -164,6 +171,39 @@ const testimonials = [
   },
 ];
 
+const employees = [
+  {
+    name: "Lim Kuan Meng",
+    position: "Managing Parther",
+    img: KuanMeng,
+  },
+  {
+    name: "Cara Lee",
+    position: "Assurance & Advisory Partner",
+    img: Cara,
+  },
+  {
+    name: "David Lim",
+    position: "Assurance & Advisory Partner",
+    img: DavidLim,
+  },
+  {
+    name: "Lau Kah Eng",
+    position: "Assurance & Advisory Partner",
+    img: KahEng,
+  },
+  {
+    name: "Oh Lip How",
+    position: "Assurance & Advisory Partner",
+    img: LipHow,
+  },
+  {
+    name: "Kee Poh Ling",
+    position: "Director of Accounting & Corporate Secretarial Services",
+    img: PohLing,
+  },
+];
+
 const insights = [
   {
     img: Insight1,
@@ -224,7 +264,7 @@ function Home() {
         <title>Home · Pinnacle Accountants</title>
       </Helmet>
       <Header />
-      <main className="relative flex flex-col gap-32 overflow-x-hidden">
+      <main className="flex flex-col gap-32">
         <HomeSection className="flex min-h-svh w-full flex-col justify-center gap-32 py-48 md:py-64">
           <h1 className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl">
             Empowering Clients with Reliability and Precision
@@ -317,7 +357,7 @@ function Home() {
             ))}
           </div>
         </HomeSection>
-        <section className="bg-slate-900 py-32">
+        <section className="relative overflow-x-hidden bg-slate-900 py-32">
           <div className="mx-auto flex max-w-[1920px] flex-col gap-32">
             <div className="w-full">
               <h2 className="mb-8 text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl">
@@ -354,7 +394,7 @@ function Home() {
               <CarouselContent>
                 {testimonials.map((testimony) => (
                   <CarouselItem className="lg:basis-5/6 2xl:basis-2/3">
-                    <div className="flex h-full flex-col gap-12 bg-zinc-50 p-8 md:flex-row">
+                    <div className="flex h-full flex-col gap-12 bg-zinc-50 p-6 md:flex-row md:p-8">
                       <div className="aspect-square md:aspect-[2/3] md:h-[460px]">
                         <img
                           src={testimony.img}
@@ -382,7 +422,7 @@ function Home() {
             </Carousel>
           </div>
         </section>
-        <HomeSection>
+        <HomeSection className="relative flex flex-col gap-16 overflow-x-hidden">
           <div className="flex flex-wrap gap-16">
             <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
               A team dedicated to your success
@@ -395,11 +435,30 @@ function Home() {
                 Singapore and are committed to helping our clients navigate the
                 complexities of regulatory compliance.
               </p>
-              <TextButton to="">Find out more</TextButton>
+              <TextButton to="/about">Find out more</TextButton>
             </div>
           </div>
+          <Carousel opts={{ skipSnaps: true }}>
+            <CarouselContent className="-ml-16 flex">
+              {employees.map((employee) => (
+                <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-1/3">
+                  <AspectRatio ratio={4 / 5}>
+                    <img
+                      src={employee.img}
+                      alt={employee.name}
+                      className="size-full object-cover"
+                    />
+                  </AspectRatio>
+                  <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
+                    {employee.name}
+                  </p>
+                  <p className="text-lg text-slate-700">{employee.position}</p>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </HomeSection>
-        <HomeSection>
+        <HomeSection className="relative overflow-x-hidden">
           <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
             <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
               Recent Insights
