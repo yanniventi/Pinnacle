@@ -1,10 +1,33 @@
+import {
+  motion,
+  useAnimationFrame,
+  useMotionTemplate,
+  useMotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useVelocity,
+} from "framer-motion";
 import { Helmet } from "react-helmet";
+import Carousell from "./assets/carousell.png";
+import CBTL from "./assets/cbtl.png";
+import Courts from "./assets/courts.png";
+import Creative from "./assets/creative.png";
 import Splash from "./assets/home_splash.jpg";
+import Ijooz from "./assets/ijooz.png";
+import Mediacorp from "./assets/mediacorp.png";
+import Mrbean from "./assets/mrbean.png";
+import Pokka from "./assets/pokka.png";
+import Singtel from "./assets/singtel.png";
+import Sph from "./assets/sph.png";
+import TigerBalm from "./assets/tigerbalm.png";
+import TigerBeer from "./assets/TigerBeer.png";
+import Zalora from "./assets/zalora.png";
 import Footer from "./components/ui/footer";
 import Header from "./components/ui/header";
 import TextButton from "./components/ui/textbutton";
 
-import { HtmlHTMLAttributes } from "react";
+import { HtmlHTMLAttributes, useState } from "react";
 import { cn } from "./lib/utils";
 
 type HomeSectionProps = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -55,12 +78,12 @@ function Home() {
     {
       service: "Accounting",
       description:
-        "Our comprehensive accounting services are designed to help businesses maintain accurate financial records and ensure compliance with regulatory requirements.",
+        "We help businesses maintain accurate financial records and ensure compliance with regulatory requirements.",
     },
     {
       service: "Taxation Services",
       description:
-        "Navigating the complex tax landscape in Singapore can be challenging. Our taxation services helps you ensure regulatory compliance and minimises your tax liabilities.",
+        "Navigating the complex tax landscape and ensure regulatory compliance and minimises your tax liabilities.",
     },
     {
       service: "Auditing Services",
@@ -70,19 +93,68 @@ function Home() {
     {
       service: "Corporate Secretarial Services",
       description:
-        "We help businesses stay compliant with ACRA regulations through our corporate secretarial services such as annual returns filing and corporate governance.",
+        "Stay compliant with ACRA regulations with services such as annual returns filing and corporate governance.",
     },
     {
       service: "Advisory Services",
       description:
-        "Our advisory services such as financial planning and risk management are designed to support your business growth and strategic planning.",
+        "Services such as financial planning and risk management designed to support your business growth and strategic planning.",
     },
     {
-      service: "Cloud-Based Accounting Solutions",
+      service: "Cloud-Based Accounting",
       description:
-        "Embrace the future of accounting with our cloud-based solutions. Get access to real-time financial data and automate your accounting processes.",
+        "Embrace the future and get access to real-time financial data and automate your accounting processes.",
     },
   ];
+  const companies = [
+    { img: Carousell, alt: "Carousell" },
+    { img: CBTL, alt: "Coffee Bean and Tea Leaf" },
+    { img: Courts, alt: "Courts" },
+    { img: Creative, alt: "Creative" },
+    { img: Ijooz, alt: "Ijooz" },
+    { img: Mediacorp, alt: "Mediacorp" },
+    { img: Mrbean, alt: "Mr Bean" },
+    { img: Pokka, alt: "Pokka" },
+    { img: Singtel, alt: "Singtel" },
+    { img: Sph, alt: "Singapore Press Holdings" },
+    { img: TigerBalm, alt: "Tiger Balm" },
+    { img: TigerBeer, alt: "Tiger Beer" },
+    { img: Zalora, alt: "Zalora" },
+  ];
+
+  const [scrollingDown, setScrollingDown] = useState(true);
+
+  const { scrollY } = useScroll();
+  const x1 = useMotionValue(0);
+  const x2 = useMotionValue(0);
+  const scrollVelocity = useVelocity(scrollY);
+  const scrollSpring = useSpring(scrollVelocity, { damping: 40 });
+  const transform1 = useMotionTemplate`${x1}%`;
+  const transform2 = useMotionTemplate`${x2}%`;
+  const direction = scrollingDown ? -1 : 1;
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious();
+    if (prev) {
+      if (y > prev) {
+        setScrollingDown(true);
+      } else {
+        setScrollingDown(false);
+      }
+    }
+  });
+
+  useAnimationFrame(() => {
+    if (x1.get() < -100) {
+      x1.set(0);
+      x2.set(100);
+    } else if (x1.get() > 0) {
+      x1.set(-100);
+      x2.set(0);
+    }
+    x1.set(x1.get() + 0.07 * direction - 0.0005 * scrollSpring.get());
+    x2.set(x1.get() + 100 + 0.07 * direction);
+  });
+
   return (
     <>
       <Helmet>
@@ -163,12 +235,12 @@ function Home() {
           </h2>
           <div className="grid grid-cols-1 gap-px border bg-slate-200 sm:grid-cols-2 xl:grid-cols-3">
             {services.map((item) => (
-              <div className="group flex aspect-square size-full flex-col gap-8 bg-zinc-50 p-8 transition-all hover:z-10 hover:bg-white hover:shadow-md sm:gap-16">
+              <div className="group relative flex aspect-square size-full flex-col gap-8 bg-zinc-50 p-8 pb-16 transition-all duration-300 hover:z-10 hover:gap-6 hover:bg-white hover:pb-20 hover:shadow-md sm:gap-16 sm:hover:gap-12">
                 <div className="flex flex-1 items-end font-serif text-3xl font-medium text-blue-700 sm:text-4xl lg:text-5xl">
                   {item.service}
                 </div>
                 <div className="flex-1 lg:text-lg">{item.description}</div>
-                <div className="overflow-hidden">
+                <div className="absolute bottom-8 left-8 overflow-hidden">
                   <TextButton
                     to=""
                     className="translate-y-full transition-transform duration-300 group-hover:translate-y-0"
@@ -181,10 +253,43 @@ function Home() {
           </div>
         </HomeSection>
 
-        <HomeSection dark>
-          <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-            Trusted by Industry Leaders
-          </h2>
+        <HomeSection dark className="px-0">
+          <div className="px-6 md:px-16">
+            <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+              Trusted by Industry Leaders
+            </h2>
+          </div>
+          <div className="absolute left-0">
+            <motion.div
+              style={{ translateX: transform1 }}
+              className="flex w-full"
+            >
+              {companies.map((company) => (
+                <div className="flex size-32 shrink-0 items-center justify-center md:size-64">
+                  <img
+                    src={company.img}
+                    alt={company.alt}
+                    className="w-3/5 object-contain"
+                  />
+                </div>
+              ))}
+            </motion.div>
+            <motion.div
+              style={{ translateX: transform2, y: "-100%" }}
+              className="flex w-full"
+            >
+              {companies.map((company) => (
+                <div className="flex size-32 shrink-0 items-center justify-center md:size-64">
+                  <img
+                    src={company.img}
+                    alt={company.alt}
+                    className="w-3/5 object-contain"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+          <div className="h-32 w-full md:h-64"></div>
         </HomeSection>
       </main>
       <Footer cta />
