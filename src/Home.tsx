@@ -8,7 +8,20 @@ import {
   useSpring,
   useVelocity,
 } from "framer-motion";
+import { HtmlHTMLAttributes, useState } from "react";
 import { Helmet } from "react-helmet";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./components/ui/carousel";
+import Footer from "./components/ui/footer";
+import Header from "./components/ui/header";
+import TextButton from "./components/ui/textbutton";
+import { cn } from "./lib/utils";
+
 import Carousell from "./assets/carousell.png";
 import CBTL from "./assets/cbtl.png";
 import Courts from "./assets/courts.png";
@@ -23,25 +36,20 @@ import Sph from "./assets/sph.png";
 import TigerBalm from "./assets/tigerbalm.png";
 import TigerBeer from "./assets/TigerBeer.png";
 import Zalora from "./assets/zalora.png";
-import Footer from "./components/ui/footer";
-import Header from "./components/ui/header";
-import TextButton from "./components/ui/textbutton";
 
-import { HtmlHTMLAttributes, useState } from "react";
-import { cn } from "./lib/utils";
+import Alex from "./assets/Alex.png";
+import David from "./assets/David.jpg";
+import Rachel from "./assets/Rachel.png";
+import Samantha from "./assets/Samantha.png";
 
-type HomeSectionProps = HtmlHTMLAttributes<HTMLDivElement> & {
-  dark?: boolean;
-};
+import Insight1 from "./assets/insight1.png";
+import Insight2 from "./assets/insight2.png";
+import Insight3 from "./assets/insight3.png";
 
-const HomeSection = ({ dark, children, className }: HomeSectionProps) => {
-  if (dark)
-    return (
-      <section className={cn(["bg-slate-900 px-6 py-32 md:px-16", className])}>
-        <div className="mx-auto max-w-[1920px]">{children}</div>
-      </section>
-    );
-
+const HomeSection = ({
+  children,
+  className,
+}: HtmlHTMLAttributes<HTMLDivElement>) => {
   return (
     <section
       className={cn(["mx-auto w-full max-w-[1920px] px-6 md:px-16", className])}
@@ -122,8 +130,64 @@ function Home() {
     { img: Zalora, alt: "Zalora" },
   ];
 
-  const [scrollingDown, setScrollingDown] = useState(true);
+  const testimonials = [
+    {
+      name: "Alex Tan",
+      position: "CEO, Tech Innovators Pte Ltd",
+      quote:
+        "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
+      img: Alex,
+    },
+    {
+      name: "Rachel Lim",
+      position: "CFO, Green Solutions Ltd",
+      quote:
+        "“We have been working with Pinnacle Accountants LLP for over a decade, and their service has always been exceptional. Their cloud-based accounting solutions have transformed the way we manage our finances, providing us with real-time insights and greater control over our financial data. I highly recommend their services to any business looking for reliable and innovative accounting support.”",
+      img: Rachel,
+    },
+    {
+      name: "Samantha Ng",
+      position: "Founder, Creative Ventures Pte Ltd",
+      quote:
+        "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
+      img: Samantha,
+    },
+    {
+      name: "David Lee",
+      position: "Managing Director, Lee & Co.",
+      quote:
+        "“The team at Pinnacle Accountants LLP is incredibly knowledgeable and dedicated. They have helped us navigate complex auditing processes with ease and provided valuable advice on improving our internal controls. Their attention to detail and commitment to excellence is truly commendable.”",
+      img: David,
+    },
+  ];
 
+  const insights = [
+    {
+      img: Insight1,
+      title:
+        "Maximizing Tax Efficiency: Strategies for Medium-Sized Businesses",
+      description:
+        "October 24, 2024 - Discover how medium-sized businesses can optimize their tax strategies to reduce liabilities and increase profitability.",
+      tag: "Tax Strategies",
+    },
+    {
+      img: Insight2,
+      title: "The Future of Accounting: Embracing Cloud-Based Solutions",
+      description:
+        "October 12, 2024 - Learn about the transformative power of cloud-based accounting solutions and how they can enhance your business operations.",
+      tag: "Technology",
+    },
+    {
+      img: Insight3,
+      title:
+        "Navigating Regulatory Compliance: A Guide for Singapore Businesses",
+      description:
+        "September 25, 2024 - Avoid common pitfalls and stay compliant with regulatory bodies like IRAS and ACRA is crucial for business success.",
+      tag: "Compliance",
+    },
+  ];
+
+  const [scrollingDown, setScrollingDown] = useState(true);
   const { scrollY } = useScroll();
   const x1 = useMotionValue(0);
   const scrollVelocity = useVelocity(scrollY);
@@ -148,7 +212,7 @@ function Home() {
     } else if (currentOffset > 0) {
       x1.set(-50);
     } else {
-      x1.set(currentOffset + 0.01 * direction - 0.00005 * scrollSpring.get());
+      x1.set(currentOffset + 0.01 * direction - 0.000025 * scrollSpring.get());
     }
   });
 
@@ -194,7 +258,7 @@ function Home() {
           <div className="flex w-full flex-col gap-16">
             {unlocks.map((data, index) => (
               <>
-                <div className="flex gap-12 font-serif text-3xl font-medium sm:text-4xl lg:gap-16 lg:text-5xl">
+                <div className="flex gap-8 font-serif text-3xl font-medium sm:text-4xl lg:gap-16 lg:text-5xl">
                   <div className="w-6 shrink-0 text-center text-slate-900">
                     {index + 1}
                   </div>
@@ -213,18 +277,20 @@ function Home() {
           </div>
         </HomeSection>
 
-        <HomeSection dark>
-          <div className="flex flex-col items-center gap-8">
-            <h2 className="w-full max-w-3xl text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-              Transform your business today with no initial cost
-            </h2>
-            <p className="w-full max-w-3xl text-center text-xl text-slate-200">
-              Get a free initial consultation to develop a customized accounting
-              solution for your specific needs and get the first month free with
-              a year long contract.
-            </p>
+        <section className="bg-slate-900 px-6 py-32 md:px-16">
+          <div className="mx-auto max-w-[1920px]">
+            <div className="flex flex-col items-center gap-8">
+              <h2 className="w-full max-w-3xl text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+                Transform your business today with no initial cost
+              </h2>
+              <p className="w-full max-w-3xl text-center text-xl text-slate-200">
+                Get a free initial consultation to develop a customized
+                accounting solution for your specific needs and get the first
+                month free with a year long contract.
+              </p>
+            </div>
           </div>
-        </HomeSection>
+        </section>
 
         <HomeSection className="flex flex-col items-end gap-16">
           <h2 className="w-10/12 max-w-3xl text-right font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
@@ -249,30 +315,83 @@ function Home() {
             ))}
           </div>
         </HomeSection>
-
-        <HomeSection dark className="px-0 md:px-0">
-          <div className="mb-8 px-6 md:mb-16 md:px-16">
-            <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-              Trusted by Industry Leaders
-            </h2>
-          </div>
-          <motion.div className="absolute inset-x-0 overflow-x-hidden">
-            <motion.div
-              className="flex w-fit gap-8"
-              style={{ translateX: transform }}
+        <section className="bg-slate-900 py-32">
+          <div className="flex flex-col gap-32">
+            <div className="w-full">
+              <h2 className="mx-auto mb-8 max-w-[1920px] text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl">
+                Trusted by Industry Leaders
+              </h2>
+              <motion.div className="absolute inset-x-0 overflow-x-hidden">
+                <motion.div
+                  className="flex w-fit gap-8"
+                  style={{ translateX: transform }}
+                >
+                  {[...companies, ...companies].map((company) => (
+                    <div className="flex size-32 items-center justify-center md:size-64">
+                      <img
+                        src={company.img}
+                        alt={company.alt}
+                        className="w-3/5 object-contain"
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </motion.div>
+              <div className="h-32 w-full md:h-64"></div>
+            </div>
+            <Carousel
+              opts={{ align: "center", loop: true }}
+              className="overflow-x-hidden px-6 md:px-16"
             >
-              {[...companies, ...companies].map((company) => (
-                <div className="flex size-32 items-center justify-center md:size-64">
-                  <img
-                    src={company.img}
-                    alt={company.alt}
-                    className="w-3/5 object-contain"
-                  />
+              <div className="mx-auto max-w-[1920px]">
+                <div className="mb-8 flex flex-wrap items-center justify-between gap-8 md:mb-16">
+                  <h2 className="font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
+                    What our clients say
+                  </h2>
+                  <div>
+                    <CarouselPrevious className="mr-3" />
+                    <CarouselNext />
+                  </div>
                 </div>
-              ))}
-            </motion.div>
-          </motion.div>
-          <div className="h-32 w-full md:h-64"></div>
+                <CarouselContent>
+                  {testimonials.map((testimony) => (
+                    <CarouselItem className="lg:basis-5/6 2xl:basis-2/3">
+                      <div className="flex h-full flex-col gap-12 bg-zinc-50 p-8 md:flex-row">
+                        <div className="aspect-square md:aspect-[2/3] md:h-[460px]">
+                          <img
+                            src={testimony.img}
+                            alt={testimony.name}
+                            className="size-full object-cover"
+                          />
+                        </div>
+                        <div className="flex flex-1 flex-col justify-between">
+                          <p className="mb-12 text-slate-900 md:text-xl">
+                            {testimony.quote}
+                          </p>
+                          <div>
+                            <p className="mb-2 font-serif text-4xl font-medium text-slate-900">
+                              {testimony.name}
+                            </p>
+                            <p className="text-lg font-medium text-slate-700">
+                              {testimony.position}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </div>
+            </Carousel>
+          </div>
+        </section>
+        <HomeSection>
+          <div className="flex flex-wrap items-center justify-between gap-8">
+            <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
+              Recent Insights
+            </h2>
+            <TextButton to="">View insights</TextButton>
+          </div>
         </HomeSection>
       </main>
       <Footer cta />
