@@ -126,11 +126,9 @@ function Home() {
 
   const { scrollY } = useScroll();
   const x1 = useMotionValue(0);
-  const x2 = useMotionValue(0);
   const scrollVelocity = useVelocity(scrollY);
-  const scrollSpring = useSpring(scrollVelocity, { damping: 40 });
-  const transform1 = useMotionTemplate`${x1}%`;
-  const transform2 = useMotionTemplate`${x2}%`;
+  const scrollSpring = useSpring(scrollVelocity, { damping: 30 });
+  const transform = useMotionTemplate`${x1}%`;
   const direction = scrollingDown ? -1 : 1;
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious();
@@ -144,15 +142,14 @@ function Home() {
   });
 
   useAnimationFrame(() => {
-    if (x1.get() < -100) {
+    const currentOffset = x1.get();
+    if (currentOffset < -50) {
       x1.set(0);
-      x2.set(100);
-    } else if (x1.get() > 0) {
-      x1.set(-100);
-      x2.set(0);
+    } else if (currentOffset > 0) {
+      x1.set(-50);
+    } else {
+      x1.set(currentOffset + 0.01 * direction - 0.00005 * scrollSpring.get());
     }
-    x1.set(x1.get() + 0.07 * direction - 0.0005 * scrollSpring.get());
-    x2.set(x1.get() + 100 + 0.07 * direction);
   });
 
   return (
@@ -253,19 +250,19 @@ function Home() {
           </div>
         </HomeSection>
 
-        <HomeSection dark className="px-0">
-          <div className="px-6 md:px-16">
+        <HomeSection dark className="px-0 md:px-0">
+          <div className="mb-8 px-6 md:mb-16 md:px-16">
             <h2 className="text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
               Trusted by Industry Leaders
             </h2>
           </div>
-          <div className="absolute left-0">
+          <motion.div className="absolute inset-x-0 overflow-x-hidden">
             <motion.div
-              style={{ translateX: transform1 }}
-              className="flex w-full"
+              className="flex w-fit gap-8"
+              style={{ translateX: transform }}
             >
-              {companies.map((company) => (
-                <div className="flex size-32 shrink-0 items-center justify-center md:size-64">
+              {[...companies, ...companies].map((company) => (
+                <div className="flex size-32 items-center justify-center md:size-64">
                   <img
                     src={company.img}
                     alt={company.alt}
@@ -274,21 +271,7 @@ function Home() {
                 </div>
               ))}
             </motion.div>
-            <motion.div
-              style={{ translateX: transform2, y: "-100%" }}
-              className="flex w-full"
-            >
-              {companies.map((company) => (
-                <div className="flex size-32 shrink-0 items-center justify-center md:size-64">
-                  <img
-                    src={company.img}
-                    alt={company.alt}
-                    className="w-3/5 object-contain"
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
+          </motion.div>
           <div className="h-32 w-full md:h-64"></div>
         </HomeSection>
       </main>
