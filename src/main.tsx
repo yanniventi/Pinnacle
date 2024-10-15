@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "react-material-symbols/outlined";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import About from "./About.tsx";

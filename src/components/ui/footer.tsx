@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import TextButton from "./textbutton";
 
 type FooterProps = {
   cta?: boolean;
@@ -10,10 +11,15 @@ const Footer = ({ cta }: FooterProps) => {
     <>
       {cta && (
         <div className="grid grid-cols-12 gap-y-16 px-6 py-32 md:px-16 lg:py-64">
-          <div className="col-span-12 pr-8 md:col-span-6 lg:text-6xl xl:col-span-8">
+          <div className="col-span-12 flex items-center pr-8 md:col-span-6 lg:pr-16 lg:text-6xl xl:col-span-8">
             <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
               Expert solutions tailored to your business needs.
             </h2>
+          </div>
+          <div className="col-span-12 flex items-center md:col-span-6 xl:col-span-4">
+            <TextButton size="large" to="/contact">
+              Get in touch
+            </TextButton>
           </div>
         </div>
       )}
