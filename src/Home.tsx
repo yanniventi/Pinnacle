@@ -26,15 +26,15 @@ import { cn } from "./lib/utils";
 
 import Carousell from "./assets/carousell.png";
 import CBTL from "./assets/cbtl.png";
-import Courts from "./assets/courts.png";
+import ComfortDelgro from "./assets/ComfortDelgro.png";
 import Creative from "./assets/creative.png";
 import Splash from "./assets/home_splash.jpg";
 import Ijooz from "./assets/ijooz.png";
 import Mediacorp from "./assets/mediacorp.png";
 import Mrbean from "./assets/mrbean.png";
 import Pokka from "./assets/pokka.png";
+import SingaporePoly from "./assets/SingaporePoly.png";
 import Singtel from "./assets/singtel.png";
-import Sph from "./assets/sph.png";
 import TigerBalm from "./assets/tigerbalm.png";
 import TigerBeer from "./assets/TigerBeer.png";
 import Zalora from "./assets/zalora.png";
@@ -127,14 +127,14 @@ const services = [
 const companies = [
   { img: Carousell, alt: "Carousell" },
   { img: CBTL, alt: "Coffee Bean and Tea Leaf" },
-  { img: Courts, alt: "Courts" },
+  { img: ComfortDelgro, alt: "Courts" },
   { img: Creative, alt: "Creative" },
   { img: Ijooz, alt: "Ijooz" },
   { img: Mediacorp, alt: "Mediacorp" },
   { img: Mrbean, alt: "Mr Bean" },
   { img: Pokka, alt: "Pokka" },
   { img: Singtel, alt: "Singtel" },
-  { img: Sph, alt: "Singapore Press Holdings" },
+  { img: SingaporePoly, alt: "Singapore Press Holdings" },
   { img: TigerBalm, alt: "Tiger Balm" },
   { img: TigerBeer, alt: "Tiger Beer" },
   { img: Zalora, alt: "Zalora" },
@@ -381,7 +381,7 @@ function Home() {
                 style={{ translateX: transform }}
               >
                 {[...companies, ...companies].map((company) => (
-                  <div className="flex size-32 items-center justify-center md:size-64">
+                  <div className="flex size-32 items-center justify-center transition-all duration-300 hover:brightness-150 md:size-64">
                     <img
                       src={company.img}
                       alt={company.alt}
