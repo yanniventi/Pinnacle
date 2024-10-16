@@ -5,9 +5,10 @@ import {
   useMotionValue,
   useMotionValueEvent,
   useScroll,
+  useTransform,
   useVelocity,
 } from "framer-motion";
-import { HtmlHTMLAttributes, useState } from "react";
+import { HtmlHTMLAttributes, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "./components/ui/aspect-ratio";
@@ -258,6 +259,13 @@ function Home() {
     }
   });
 
+  const splash = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: splash,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
+
   return (
     <>
       <Helmet>
@@ -276,11 +284,16 @@ function Home() {
               20 years of experience
             </p>
           </div>
-          <img
-            src={Splash}
-            alt="Splash image of Blue mountains"
-            className="absolute inset-x-0 top-0 -z-10 size-full max-h-svh object-cover"
-          />
+          <div className="absolute inset-x-0 top-0 -z-10 size-full max-h-svh overflow-hidden">
+            <motion.div style={{ y }} className="relative h-full">
+              <img
+                src={Splash}
+                ref={splash}
+                alt="Splash image of Blue mountains"
+                className="size-full object-cover"
+              />
+            </motion.div>
+          </div>
         </HomeSection>
         <HomeSection className="flex flex-col gap-16 lg:flex-row">
           <div className="flex h-fit w-full flex-col gap-16 lg:sticky lg:top-32">
@@ -442,7 +455,7 @@ function Home() {
             <Carousel opts={{ skipSnaps: true }}>
               <CarouselContent className="-ml-16 flex">
                 {employees.map((employee) => (
-                  <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-1/3">
+                  <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-[30%]">
                     <AspectRatio ratio={4 / 5}>
                       <img
                         src={employee.img}
