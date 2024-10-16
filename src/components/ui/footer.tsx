@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "./button";
 import { Input } from "./input";
+import MaskText from "./maskText";
 import TextButton from "./textbutton";
 
 type FooterLinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
@@ -29,9 +30,11 @@ const Footer = ({ cta }: FooterProps) => {
       {cta && (
         <div className="mx-auto grid max-w-[1920px] grid-cols-12 gap-y-16 px-6 py-32 md:px-16 lg:py-64">
           <div className="col-span-12 flex items-center pr-8 md:col-span-8 lg:pr-16 lg:text-6xl">
-            <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-              Expert solutions tailored to your business needs.
-            </h2>
+            <MaskText
+              node="h2"
+              text="Expert solutions tailored to your business needs."
+              className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+            />
           </div>
           <div className="col-span-12 flex items-center md:col-span-4">
             <TextButton size="large" to="/contact">

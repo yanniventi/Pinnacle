@@ -8,7 +8,7 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { HtmlHTMLAttributes, useRef, useState } from "react";
+import { Fragment, HtmlHTMLAttributes, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "./components/ui/aspect-ratio";
@@ -53,6 +53,8 @@ import PohLing from "./assets/PohLing.png";
 import Insight1 from "./assets/insight1.png";
 import Insight2 from "./assets/insight2.png";
 import Insight3 from "./assets/insight3.png";
+import FadeIn from "./components/ui/fadein";
+import MaskText from "./components/ui/maskText";
 
 const HomeSection = ({
   children,
@@ -272,15 +274,19 @@ function Home() {
       </Helmet>
       <main className="flex flex-col gap-32">
         <HomeSection className="flex min-h-svh w-full flex-col justify-center gap-32 py-48 md:py-64">
-          <h1 className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl">
-            Empowering Clients with Reliability and Precision
-          </h1>
+          <MaskText
+            node="h1"
+            text="Empowering Clients with Reliability and Precision"
+            className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl"
+          />
           <div className="flex w-10/12 max-w-xs flex-col gap-4 sm:gap-8">
             <div className="h-2 w-24 bg-blue-700"></div>
-            <p className="text-base text-slate-900 sm:text-2xl">
-              We are committed to providing expert financial services with over
-              20 years of experience
-            </p>
+            <FadeIn>
+              <p className="text-base text-slate-900 sm:text-2xl">
+                We are committed to providing expert financial services with
+                over 20 years of experience
+              </p>
+            </FadeIn>
           </div>
           <div className="absolute inset-x-0 top-0 -z-10 size-full max-h-svh overflow-hidden">
             <motion.div style={{ y }} className="relative h-full">
@@ -295,28 +301,38 @@ function Home() {
         </HomeSection>
         <HomeSection className="flex flex-col gap-16 lg:flex-row">
           <div className="flex h-fit w-full flex-col gap-16 lg:sticky lg:top-32">
-            <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-              We help you unlock your business potential
-            </h2>
-            <p className="w-full text-slate-700">
-              At Pinnacle Accountants LLP, we understand the unique challenges
-              that businesses face. Our specialized services are designed to
-              provide the additional support your accounting division needs,
-              ensuring compliance with regulatory bodies like IRAS and ACRA, and
-              helping you navigate the complex business environment in
-              Singapore.
-            </p>
-            <TextButton to="/contact">Get in touch</TextButton>
+            <MaskText
+              node="h2"
+              className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+              text="We help you unlock your business potential"
+            />
+            <FadeIn>
+              <p className="w-full text-slate-700">
+                At Pinnacle Accountants LLP, we understand the unique challenges
+                that businesses face. Our specialized services are designed to
+                provide the additional support your accounting division needs,
+                ensuring compliance with regulatory bodies like IRAS and ACRA,
+                and helping you navigate the complex business environment in
+                Singapore.
+              </p>
+            </FadeIn>
+            <FadeIn>
+              <TextButton to="/contact">Get in touch</TextButton>
+            </FadeIn>
           </div>
           <div className="flex w-full flex-col gap-16">
             {unlocks.map((data, index) => (
-              <>
+              <Fragment key={data.title}>
                 <div className="flex gap-8 font-serif text-3xl font-medium sm:text-4xl lg:gap-16 lg:text-5xl">
                   <div className="w-6 shrink-0 text-center text-slate-900">
                     {index + 1}
                   </div>
                   <div>
-                    <h3 className="mb-8 text-blue-700">{data.title}</h3>
+                    <MaskText
+                      node="h3"
+                      text={data.title}
+                      className="mb-8 text-blue-700"
+                    />
                     <p className="font-sans text-base font-normal text-slate-700">
                       {data.description}
                     </p>
@@ -325,7 +341,7 @@ function Home() {
                 {index !== unlocks.length - 1 && (
                   <div className="h-px w-full bg-slate-200"></div>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </HomeSection>
@@ -333,9 +349,11 @@ function Home() {
         <section className="bg-slate-900 px-6 py-32 md:px-16">
           <div className="mx-auto max-w-[1920px]">
             <div className="flex flex-col items-center gap-8">
-              <h2 className="w-full max-w-3xl text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-                Transform your business today with no initial cost
-              </h2>
+              <MaskText
+                node="h2"
+                className="w-full max-w-3xl text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl"
+                text="Transform your business today with no initial cost"
+              />
               <p className="w-full max-w-3xl text-center text-xl text-slate-200">
                 Get a free initial consultation to develop a customized
                 accounting solution for your specific needs and get the first
@@ -346,14 +364,19 @@ function Home() {
         </section>
 
         <HomeSection className="flex flex-col items-end gap-16">
-          <h2 className="w-10/12 max-w-3xl text-right font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-            Comprehensive range of accounting services
-          </h2>
+          <MaskText
+            node="h2"
+            text="Comprehensive range of accounting services"
+            className="w-10/12 max-w-3xl text-right font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+          />
           <div className="grid grid-cols-1 gap-px border bg-slate-200 sm:grid-cols-2 xl:grid-cols-3">
             {services.map((item) => (
-              <div className="group relative flex aspect-square size-full flex-col gap-8 bg-zinc-50 p-8 pb-16 transition-all duration-300 hover:z-10 hover:gap-6 hover:bg-white hover:pb-20 hover:shadow-md sm:gap-16 sm:hover:gap-12">
+              <motion.div
+                key={item.service}
+                className="group relative flex aspect-square size-full flex-col gap-8 bg-zinc-50 p-8 pb-16 transition-all duration-300 hover:z-10 hover:gap-6 hover:bg-white hover:pb-20 hover:shadow-md sm:gap-16 sm:hover:gap-12"
+              >
                 <div className="flex flex-1 items-end font-serif text-3xl font-medium text-blue-700 sm:text-4xl lg:text-5xl">
-                  {item.service}
+                  <MaskText node="h3" text={item.service} />
                 </div>
                 <div className="flex-1 lg:text-lg">{item.description}</div>
                 <div className="absolute bottom-8 left-8 overflow-hidden">
@@ -364,22 +387,27 @@ function Home() {
                     Find out more
                   </TextButton>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </HomeSection>
         <section className="relative overflow-x-hidden bg-slate-900 py-32">
           <div className="mx-auto flex max-w-[1920px] flex-col gap-32">
             <div className="w-full">
-              <h2 className="mb-8 text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl">
-                Trusted by Industry Leaders
-              </h2>
+              <MaskText
+                node="h2"
+                text="Trusted by Industry Leaders"
+                className="mb-8 text-center font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:mb-16 lg:text-6xl"
+              />
               <motion.div
                 className="flex w-fit gap-8"
                 style={{ translateX: transform }}
               >
-                {[...companies, ...companies].map((company) => (
-                  <div className="flex size-32 items-center justify-center transition-all duration-300 hover:brightness-150 md:size-64">
+                {[...companies, ...companies].map((company, index) => (
+                  <div
+                    key={index}
+                    className="flex size-32 items-center justify-center transition-all duration-300 hover:brightness-150 md:size-64"
+                  >
                     <img
                       src={company.img}
                       alt={company.alt}
@@ -394,9 +422,11 @@ function Home() {
               className="px-6 md:px-16"
             >
               <div className="mb-8 flex flex-wrap items-center justify-between gap-8 md:mb-16">
-                <h2 className="font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl">
-                  What our clients say
-                </h2>
+                <MaskText
+                  node="h2"
+                  text="What our clients say"
+                  className="font-serif text-3xl font-bold text-blue-50 sm:text-4xl lg:text-6xl"
+                />
                 <div>
                   <CarouselPrevious className="mr-3" />
                   <CarouselNext />
@@ -404,7 +434,10 @@ function Home() {
               </div>
               <CarouselContent>
                 {testimonials.map((testimony) => (
-                  <CarouselItem className="lg:basis-5/6 2xl:basis-2/3">
+                  <CarouselItem
+                    className="lg:basis-5/6 2xl:basis-2/3"
+                    key={testimony.name}
+                  >
                     <div className="flex h-full flex-col gap-12 bg-zinc-50 p-6 md:flex-row md:p-8">
                       <div className="aspect-square md:aspect-[2/3] md:h-[460px]">
                         <img
@@ -436,24 +469,31 @@ function Home() {
         <HomeSection className="relative mx-0 max-w-none overflow-x-hidden">
           <div className="mx-auto flex max-w-[1920px] flex-col gap-16">
             <div className="flex flex-wrap gap-16">
-              <h2 className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-                A team dedicated to your success
-              </h2>
-              <div className="max-w-sm">
-                <p className="mb-6 text-slate-700">
-                  Our team of certified accountants and tax advisors is
-                  dedicated to providing accurate, timely, and personalized
-                  financial services. We understand the unique business
-                  environment in Singapore and are committed to helping our
-                  clients navigate the complexities of regulatory compliance.
-                </p>
-                <TextButton to="/about">Find out more</TextButton>
-              </div>
+              <MaskText
+                node="h2"
+                text="A team dedicated to your success"
+                className="w-10/12 max-w-3xl font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+              />
+              <FadeIn>
+                <div className="max-w-sm">
+                  <p className="mb-6 text-slate-700">
+                    Our team of certified accountants and tax advisors is
+                    dedicated to providing accurate, timely, and personalized
+                    financial services. We understand the unique business
+                    environment in Singapore and are committed to helping our
+                    clients navigate the complexities of regulatory compliance.
+                  </p>
+                  <TextButton to="/about">Find out more</TextButton>
+                </div>
+              </FadeIn>
             </div>
             <Carousel opts={{ skipSnaps: true }}>
               <CarouselContent className="-ml-16 flex">
                 {employees.map((employee) => (
-                  <CarouselItem className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-[30%]">
+                  <CarouselItem
+                    className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-[30%]"
+                    key={employee.name}
+                  >
                     <AspectRatio ratio={4 / 5}>
                       <img
                         src={employee.img}
@@ -475,9 +515,11 @@ function Home() {
         </HomeSection>
         <HomeSection className="relative overflow-x-hidden">
           <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
-            <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-              Recent Insights
-            </h2>
+            <MaskText
+              node="h2"
+              text="Recent Insights"
+              className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+            />
             <TextButton to="">View insights</TextButton>
           </div>
           <Carousel
@@ -485,7 +527,10 @@ function Home() {
           >
             <CarouselContent className="-ml-6">
               {insights.map((insight) => (
-                <CarouselItem className="basis-11/12 pl-6 sm:basis-2/3 lg:basis-1/3">
+                <CarouselItem
+                  className="basis-11/12 pl-6 sm:basis-2/3 lg:basis-1/3"
+                  key={insight.title}
+                >
                   <Link
                     to=""
                     className="flex h-full flex-col gap-6 border border-slate-200 p-6 transition-all hover:bg-white hover:shadow-md"

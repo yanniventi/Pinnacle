@@ -1,3 +1,5 @@
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Helmet } from "react-helmet";
 import { AspectRatio } from "./components/ui/aspect-ratio";
 import Footer from "./components/ui/footer";
@@ -5,8 +7,8 @@ import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
 import TextButton from "./components/ui/textbutton";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import MaskText from "./components/ui/maskText";
+
 import Headquarters from "./assets/headquarters.png";
 
 const Contact = () => {
@@ -25,9 +27,11 @@ const Contact = () => {
       <main className="mx-auto flex max-w-[1920px] flex-col gap-64 px-6 md:px-16">
         <section className="mx-auto max-w-3xl pt-64">
           <div className="mb-24 w-full">
-            <h1 className="mb-12 text-center font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl">
-              Get in touch with our financial experts
-            </h1>
+            <MaskText
+              node="h1"
+              text="Get in touch with our financial experts"
+              className="mb-12 text-center font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl"
+            />
             <p className="text-center text-2xl text-slate-700">
               Get a free consultation and find out how we can help your business
               and get solutions tailored for your specific situation
@@ -78,9 +82,11 @@ const Contact = () => {
         </section>
         <section className="flex w-full flex-col gap-16 md:flex-row">
           <div className="flex w-full max-w-md flex-col justify-center gap-16">
-            <h2 className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-              Our headquartes
-            </h2>
+            <MaskText
+              node="h2"
+              text="Our headquarters"
+              className="font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+            />
             <p className="text-2xl text-slate-700">
               380 Jln Besar <br />
               #14-09/10/11/12 ARC 380 <br />
