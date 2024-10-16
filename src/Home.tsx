@@ -373,7 +373,7 @@ function Home() {
             {services.map((item) => (
               <motion.div
                 key={item.service}
-                className="group relative flex aspect-square size-full flex-col gap-8 bg-zinc-50 p-8 pb-16 transition-all duration-300 hover:z-10 hover:gap-6 hover:bg-white hover:pb-20 hover:shadow-md sm:gap-16 sm:hover:gap-12"
+                className="group relative flex size-full flex-col gap-8 bg-zinc-50 p-8 pb-16 transition-all duration-300 hover:z-10 hover:gap-4 hover:bg-white hover:pb-20 hover:shadow-md sm:aspect-square sm:gap-16 sm:hover:gap-12"
               >
                 <div className="flex flex-1 items-end font-serif text-3xl font-medium text-blue-700 sm:text-4xl lg:text-5xl">
                   <MaskText node="h3" text={item.service} />
@@ -487,11 +487,11 @@ function Home() {
                 </div>
               </FadeIn>
             </div>
-            <Carousel opts={{ skipSnaps: true }}>
+            <Carousel opts={{ skipSnaps: true, align: "start" }}>
               <CarouselContent className="-ml-16 flex">
                 {employees.map((employee) => (
                   <CarouselItem
-                    className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-1/2 md:w-96 lg:basis-[30%]"
+                    className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-2/3 md:w-96 lg:basis-[30%]"
                     key={employee.name}
                   >
                     <AspectRatio ratio={4 / 5}>

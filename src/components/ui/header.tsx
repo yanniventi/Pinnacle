@@ -121,7 +121,7 @@ const Header = () => {
             <HeaderLink to="">Insights</HeaderLink>
           </motion.div>
           <motion.div variants={itemVariants}>
-            <HeaderLink to="/">Careers</HeaderLink>
+            <HeaderLink to="">Careers</HeaderLink>
           </motion.div>
           <motion.div variants={itemVariants}>
             <HeaderLink to="/contact">Contact Us</HeaderLink>
@@ -147,7 +147,7 @@ const Header = () => {
             <Link to="">Insights</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/">Careers</Link>
+            <Link to="">Careers</Link>
           </Button>
           <Button
             asChild

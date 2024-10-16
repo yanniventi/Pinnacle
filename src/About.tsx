@@ -1,36 +1,30 @@
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Helmet } from "react-helmet";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
-import TextButton from "./components/ui/textbutton";
 import Splash from "./assets/about_splash.jpg";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "./components/ui/carousel";
+import FadeIn from "./components/ui/fadein";
 import Footer from "./components/ui/footer";
-import LimKuanMeng from "./assets/LimKuanMeng.jpg";
-import CaraLee from "./assets/CaraLee.jpg";
-import DavidLim from "./assets/DavidLim.jpg";
-import LauKahEng from "./assets/LauKahEng.jpg";
-import OhLipHow from "./assets/OhLipHow.jpg";
-import KeePohLing from "./assets/KeePohLing.jpg";
-import OurStory1 from "./assets/ourstory1.jpeg";
-import OurStory2 from "./assets/ourstory2.jpeg";
+import MaskText from "./components/ui/maskText";
+
+import Cara from "./assets/Cara.png";
+import DavidLim from "./assets/David.png";
+import KahEng from "./assets/KahEng.png";
+import KuanMeng from "./assets/KuanMeng.png";
+import LipHow from "./assets/LipHow.png";
+import PohLing from "./assets/PohLing.png";
+import OurStory1 from "./assets/ourstory1.jpg";
+import OurStory2 from "./assets/ourstory2.jpg";
 import OurStory3 from "./assets/ourstory3.jpg";
+import TextButton from "./components/ui/textbutton";
 
 function About() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const splash = useRef(null);
-  const statisticsSectionRef = useRef(null);
-  const ourStorySectionRef = useRef(null);
-  const principlesSectionRef = useRef(null);
-  const trustedNameSectionRef = useRef(null);
-  const teamSectionRef = useRef(null);
-
-  const statisticsInView = useInView(statisticsSectionRef, { once: true });
-  const ourStoryInView = useInView(ourStorySectionRef, { once: true });
-  const principlesInView = useInView(principlesSectionRef, { once: true });
-  const trustedNameInView = useInView(trustedNameSectionRef, { once: true });
-  const teamInView = useInView(teamSectionRef, { once: true });
 
   const { scrollYProgress } = useScroll({
     target: splash,
@@ -38,33 +32,6 @@ function About() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
-
-  const fadeInUpVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
-
-  const fadeInLeftVariants = {
-    hidden: { opacity: 0, x: -100 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
-
-  const fadeInRightVariants = {
-    hidden: { opacity: 0, x: 100 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
 
   const principles = [
     {
@@ -80,41 +47,42 @@ function About() {
     {
       principle: "A Trusted Business Partner",
       description:
-        "We work alongside you, transforming insights into strategies that power your growth and elevate your competitive edge. We’re more than a service provider—we’re your strategic ally in success.",
+        "We work alongside you, transforming insights into strategies that power your growth and elevate your competitive edge. We're more than a service provider—we're your strategic ally in success.",
     },
   ];
-  const team = [
+  const employees = [
     {
-      picture: LimKuanMeng,
       name: "Lim Kuan Meng",
-      role: "Managing Partner",
+      position: "Managing Parther",
+      img: KuanMeng,
     },
     {
-      picture: CaraLee,
       name: "Cara Lee",
-      role: "Assurance & Advisory Partner",
+      position: "Assurance & Advisory Partner",
+      img: Cara,
     },
     {
-      picture: DavidLim,
       name: "David Lim",
-      role: "Assurance & Advisory Partner",
+      position: "Assurance & Advisory Partner",
+      img: DavidLim,
     },
     {
-      picture: LauKahEng,
       name: "Lau Kah Eng",
-      role: "Assurance & Advisory Partner",
+      position: "Assurance & Advisory Partner",
+      img: KahEng,
     },
     {
-      picture: OhLipHow,
       name: "Oh Lip How",
-      role: "Assurance & Advisory Partner",
+      position: "Assurance & Advisory Partner",
+      img: LipHow,
     },
     {
-      picture: KeePohLing,
       name: "Kee Poh Ling",
-      role: "Director of Accounting & Corporate Secretarial Services",
+      position: "Director of Accounting & Corporate Secretarial Services",
+      img: PohLing,
     },
   ];
+
   const statistics = [
     {
       header: "Founded in:",
@@ -138,21 +106,21 @@ function About() {
   const ourstory = [
     {
       image: OurStory3,
-      subheader: "MISSION",
+      subheader: "Mission",
       header: "Empowering Your Business with Expert Financial Guidance",
       paragraph:
         "For over two decades, Pinnacle Accountants LLP has been a trusted partner for businesses across Singapore, from emerging startups to established corporations. Our team of experienced accountants, tax advisors, and auditors is committed to helping businesses thrive by offering personalized financial solutions tailored to their unique needs. We go beyond standard accounting services, focusing on strategic planning and long-term financial success. When you partner with us, you're gaining access to expertise that ensures compliance, reduces risk, and enhances profitability.",
     },
     {
       image: OurStory2,
-      subheader: "ASSURANCE",
-      header: "Deep Expertise in Singapore’s Regulatory Landscape",
+      subheader: "Assurance",
+      header: "Deep Expertise in Singapore's Regulatory Landscape",
       paragraph:
-        "With an in-depth understanding of Singapore’s complex business regulations, we offer a clear path through the ever-evolving financial and compliance requirements. At Pinnacle Accountants LLP, we specialize in navigating the regulations set forth by the Inland Revenue Authority of Singapore (IRAS) and the Accounting and Corporate Regulatory Authority (ACRA). Whether it's tax planning, corporate governance, or regulatory filings, our team ensures that your business stays compliant, freeing you to focus on growth and innovation.",
+        "With an in-depth understanding of Singapore's complex business regulations, we offer a clear path through the ever-evolving financial and compliance requirements. At Pinnacle Accountants LLP, we specialize in navigating the regulations set forth by the Inland Revenue Authority of Singapore (IRAS) and the Accounting and Corporate Regulatory Authority (ACRA). Whether it's tax planning, corporate governance, or regulatory filings, our team ensures that your business stays compliant, freeing you to focus on growth and innovation.",
     },
     {
       image: OurStory1,
-      subheader: "INNOVATION",
+      subheader: "Innovation",
       header: "Innovative Solutions for a Changing Business World",
       paragraph:
         "In today's fast-paced business environment, embracing innovation is key to staying competitive. At Pinnacle Accountants LLP, we leverage the latest technology, including cloud-based accounting software, to provide our clients with real-time insights into their financial health. This innovative approach allows us to offer proactive advice and strategies that help businesses adapt and succeed in an ever-changing market. With our forward-thinking mindset, we're not just managing your finances—we're helping you shape your future.",
@@ -163,18 +131,22 @@ function About() {
       <Helmet>
         <title>About · Pinnacle Accountants</title>
       </Helmet>
-      <main className="flex flex-col">
+      <main className="relative flex flex-col overflow-x-hidden">
         <section className="relative flex min-h-svh flex-col justify-center gap-8 px-4 py-24 sm:px-6 sm:py-32 md:px-16 md:py-48">
           <div className="mx-auto w-full max-w-[1920px]">
-            <h1 className="mw-10/12 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl lg:text-7xl">
-              Beyond Numbers, Building Success
-            </h1>
-            <div className="flex w-10/12 max-w-md flex-col gap-4 py-4 sm:gap-8">
-              <p className="text-base text-white sm:text-xl">
-                Strategic insights to elevate your business performance and
-                achieve your vision.
-              </p>
-            </div>
+            <MaskText
+              node="h1"
+              text="Beyond Numbers, Building Success"
+              className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-white sm:text-5xl lg:text-7xl"
+            />
+            <FadeIn>
+              <div className="flex w-10/12 max-w-md flex-col gap-4 py-4 sm:gap-8">
+                <p className="text-base text-white sm:text-xl">
+                  Strategic insights to elevate your business performance and
+                  achieve your vision.
+                </p>
+              </div>
+            </FadeIn>
           </div>
 
           <div className="absolute inset-0 -z-10 size-full max-h-svh overflow-hidden">
@@ -189,121 +161,112 @@ function About() {
           </div>
         </section>
 
-        <motion.section
-          ref={statisticsSectionRef}
-          className="w-full bg-zinc-50"
-          initial="hidden"
-          animate={statisticsInView ? "visible" : "hidden"}
-          variants={fadeInUpVariants}
-        >
+        <FadeIn>
           <div className="mx-auto w-full max-w-[1920px] px-4 py-32 sm:px-6 sm:py-40 md:px-16">
             <div className="flex flex-col items-start gap-16">
-              <h2 className="w-full max-w-full text-left font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-                Your Partner in Financial Success
-              </h2>
+              <MaskText
+                node="h2"
+                text="Your Partner in Financial Success"
+                className="w-full max-w-full text-left font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+              />
             </div>
 
             <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {statistics.map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  variants={fadeInUpVariants}
-                  className="flex flex-col items-start gap-4 bg-white p-8 text-center shadow-md transition-shadow duration-300 hover:shadow-lg"
-                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-start gap-4 border border-slate-200 p-8 transition-all duration-300 hover:bg-white hover:shadow-md"
                 >
                   <h3 className="mb-24 text-lg font-normal text-slate-900 sm:text-xl lg:text-2xl">
                     {stat.header}
                   </h3>
-                  <p className="font-serif text-4xl font-bold text-blue-700 sm:text-5xl lg:text-7xl">
-                    {stat.numbers}
-                  </p>
+                  <MaskText
+                    node="p"
+                    text={stat.numbers}
+                    className="font-serif text-4xl font-bold text-blue-700 sm:text-5xl lg:text-7xl"
+                  />
                   <div className="h-px w-full bg-slate-200"></div>
-                  <p className="sm:text-md text-start text-sm text-slate-700 lg:text-lg">
+                  <p className="text-slate-700 lg:text-lg">
                     {stat.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
-        <motion.section
-          ref={ourStorySectionRef}
-          className="w-full bg-slate-900"
-          initial="hidden"
-          animate={ourStoryInView ? "visible" : "hidden"}
-          variants={fadeInUpVariants}
-        >
-          <div className="mx-auto w-full max-w-[1920px] px-8 py-32 sm:px-12 sm:py-40 md:px-20 md:py-48">
+        </FadeIn>
+        <FadeIn className="bg-slate-900">
+          <div className="mx-auto w-full max-w-[1920px] px-8 py-32 sm:px-12 sm:py-40 lg:px-20 lg:py-48">
             {ourstory.map((story, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center gap-12 md:gap-20 ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                className={`mb-12 flex flex-col items-center gap-12 lg:gap-24 ${
+                  index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                 }`}
               >
                 <motion.div
-                  variants={
-                    index % 2 === 0 ? fadeInLeftVariants : fadeInRightVariants
-                  }
-                  className="w-full md:w-1/2"
+                  viewport={{ once: true, amount: "some" }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.75, ease: [0.33, 1, 0.68, 1] }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                  className="w-full lg:w-1/2"
                 >
-                  <div className="relative mx-auto h-[500px] w-[400px] md:h-[600px] md:w-[500px] lg:h-[700px] lg:w-[600px]">
+                  <AspectRatio
+                    ratio={4 / 3}
+                    className="flex w-full items-center justify-center"
+                  >
                     <img
                       src={story.image}
                       alt={story.header}
-                      className="h-full w-full object-cover object-center"
+                      className="size-full object-cover lg:size-10/12"
                     />
-                  </div>
+                  </AspectRatio>
                 </motion.div>
-
                 <motion.div
-                  variants={
-                    index % 2 === 0 ? fadeInRightVariants : fadeInLeftVariants
-                  }
-                  className="flex h-full w-full flex-col justify-center gap-6 md:w-1/3 md:gap-8"
+                  viewport={{ once: true, amount: "some" }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.75, ease: [0.33, 1, 0.68, 1] }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
+                  className="flex size-full flex-col justify-center gap-6 lg:w-1/3 lg:gap-8"
                 >
-                  <h2 className="sm:text-md text-sm font-bold text-blue-700 lg:text-xl">
-                    {story.subheader}
-                  </h2>
-                  <h2 className="font-serif text-xl font-bold text-blue-50 sm:text-2xl lg:text-4xl">
-                    {story.header}
-                  </h2>
-                  <p className="lg:text-md text-xs text-slate-200 sm:text-sm">
-                    {story.paragraph}
-                  </p>
-                  <TextButton to="" className="text-blue-700">
-                    See More
-                  </TextButton>
+                  <div>
+                    <h3 className="mb-2 font-medium text-slate-400 lg:text-xl">
+                      {story.subheader}
+                    </h3>
+                    <h2 className="font-serif text-xl font-bold text-blue-50 sm:text-2xl lg:text-4xl">
+                      {story.header}
+                    </h2>
+                  </div>
+                  <p className="text-slate-300">{story.paragraph}</p>
+                  {index !== 0 && (
+                    <TextButton to="" className="text-slate-200">
+                      Learn more
+                    </TextButton>
+                  )}
                 </motion.div>
               </div>
             ))}
           </div>
-        </motion.section>
+        </FadeIn>
 
-        <motion.section
-          ref={principlesSectionRef}
-          className="w-full bg-zinc-50"
-          initial="hidden"
-          animate={principlesInView ? "visible" : "hidden"}
-          variants={fadeInUpVariants}
-        >
-          <div className="mx-auto w-full max-w-[1920px] px-4 py-32 sm:px-6 md:px-16">
+        <FadeIn>
+          <div className="mx-auto flex w-full max-w-[1920px] flex-col gap-16 px-4 py-32 sm:px-6 md:px-16">
             <div className="flex w-full items-end justify-end">
-              <h2 className="mt-8 w-10/12 max-w-3xl text-right font-serif text-3xl font-bold text-slate-900 sm:text-4xl md:mt-16 lg:text-6xl">
-                Pinnacle's Core Principles
-              </h2>
+              <MaskText
+                node="h2"
+                text="Pinnacle's Core Principles"
+                className="w-10/12 max-w-3xl text-right font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+              />
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
               {principles.map((item, index) => (
                 <div
                   key={index}
-                  className={`flex aspect-square size-full flex-col gap-6 border border-slate-200 bg-zinc-50 p-4 transition-all hover:z-10 hover:bg-white hover:shadow-md sm:p-8 md:p-12`}
-                  style={{ marginTop: `${index * 40}px` }}
+                  className={`flex size-full flex-col gap-6 border border-slate-200 bg-zinc-50 p-4 transition-all hover:z-10 hover:bg-white hover:shadow-md sm:aspect-square sm:p-8 md:p-12 ${index !== 0 && "border-t-0 sm:border"}`}
                 >
                   <div className="flex flex-1 items-end text-start font-serif text-3xl font-bold text-blue-700 sm:text-4xl lg:text-5xl">
                     {item.principle}
                   </div>
-                  <div className="mx-auto h-0.5 w-full bg-slate-200"></div>
+                  <div className="mx-auto h-px w-full bg-slate-200"></div>
                   <div className="flex-1 text-start text-slate-700 lg:text-xl">
                     {item.description}
                   </div>
@@ -311,84 +274,78 @@ function About() {
               ))}
             </div>
 
-
-            <div className="flex w-full items-start">
-              <h2 className="w-1/2 max-w-full py-20 text-left font-serif text-3xl font-bold text-slate-900 sm:text-4xl md:py-24 lg:text-6xl">
-                Empowering Your Business With Strategic, Tailored Solutions
-              </h2>
-            </div>
+            <MaskText
+              node="h2"
+              text="Empowering Your Business With Strategic, Tailored Solutions"
+              className="w-10/12 max-w-3xl text-left font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+            />
           </div>
-        </motion.section>
+        </FadeIn>
 
         {/* Trusted Name Section */}
-        <motion.section
-          ref={trustedNameSectionRef}
-          className="w-full bg-slate-900"
-          initial="hidden"
-          animate={trustedNameInView ? "visible" : "hidden"}
-          variants={fadeInUpVariants}
-        >
+        <FadeIn className="bg-slate-900">
           <div className="mx-auto w-full max-w-[1920px] px-4 py-24 sm:px-6 sm:py-32 md:px-16">
             <div className="flex flex-col items-start gap-16 md:flex-row">
-              <h2 className="w-full max-w-full text-left font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:w-1/2 lg:text-6xl">
-                A Trusted Name in Accounting Excellence for Over 20 Years
-              </h2>
-              <p className="text-md w-full text-slate-200 sm:text-lg md:w-1/2 lg:text-xl">
+              <MaskText
+                node="h2"
+                text="A Trusted Name in Accounting Excellence for Over 20 Years"
+                className="w-full max-w-full text-left font-serif text-3xl font-bold text-blue-50 sm:text-4xl md:w-1/2 lg:text-6xl"
+              />
+              <p className="w-full text-slate-200 sm:text-lg md:w-1/2 lg:text-xl">
                 Backed by a team of highly qualified professionals, Pinnacle is
                 driven by a shared commitment to excellence. Our diverse
                 partners and staff deliver comprehensive public accounting and
                 professional services, dedicated to guiding your business
-                towards financial clarity and success. At Pinnacle, we’re more
-                than just accountants—we’re your partners in progress.
+                towards financial clarity and success. At Pinnacle, we're more
+                than just accountants — we're your partners in progress.
               </p>
             </div>
           </div>
-        </motion.section>
+        </FadeIn>
 
         {/* Team Section */}
-        <motion.section
-          ref={teamSectionRef}
-          className="w-full bg-zinc-50"
-          initial="hidden"
-          animate={teamInView ? "visible" : "hidden"}
-          variants={fadeInUpVariants}
-        >
+        <FadeIn>
           <div className="mx-auto w-full max-w-[1920px] px-4 py-16 sm:px-6 sm:py-24 md:px-16">
-            <div className="flex flex-col items-center gap-16 md:flex-row">
-              <h2 className="w-full max-w-full text-center font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl">
-                Meet the Team
-              </h2>
-            </div>
-            <div className="flex w-full items-center justify-center">
-              <p className="w-full max-w-2xl text-center text-lg font-normal text-slate-700 sm:text-xl lg:text-2xl">
-                Great ideas take shape through dedication, effort, and the right
-                people by your side.
-              </p>
+            <div className="mb-16 flex flex-col items-center gap-4">
+              <MaskText
+                node="h2"
+                text="Meet the Team"
+                className="w-full max-w-full text-center font-serif text-3xl font-bold text-slate-900 sm:text-4xl lg:text-6xl"
+              />
+              <FadeIn>
+                <p className="w-full max-w-2xl text-center text-slate-700 sm:text-xl lg:text-2xl">
+                  Great ideas take shape through dedication, effort, and the
+                  right people by your side.
+                </p>
+              </FadeIn>
             </div>
 
-            <div className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-16 md:grid-cols-3">
-              {team.map((member, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUpVariants}
-                  className="flex flex-col items-center gap-2 text-center"
-                >
-                  <img
-                    src={member.picture}
-                    alt={`${member.name}`}
-                    className="h-48 w-48 object-cover sm:h-56 sm:w-56 md:h-64 md:w-64 lg:h-72 lg:w-72"
-                  />
-                  <h3 className="font-serif text-xl font-bold text-slate-900 sm:text-2xl lg:text-3xl">
-                    {member.name}
-                  </h3>
-                  <p className="mt-2 text-base text-slate-700 sm:text-lg lg:text-xl">
-                    {member.role}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            <Carousel opts={{ skipSnaps: true, align: "start" }}>
+              <CarouselContent className="-ml-16 flex">
+                {employees.map((employee) => (
+                  <CarouselItem
+                    className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-2/3 md:w-96 lg:basis-[30%]"
+                    key={employee.name}
+                  >
+                    <AspectRatio ratio={4 / 5}>
+                      <img
+                        src={employee.img}
+                        alt={employee.name}
+                        className="size-full object-cover"
+                      />
+                    </AspectRatio>
+                    <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
+                      {employee.name}
+                    </p>
+                    <p className="text-lg text-slate-700">
+                      {employee.position}
+                    </p>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
-        </motion.section>
+        </FadeIn>
       </main>
       <Footer cta />
     </>

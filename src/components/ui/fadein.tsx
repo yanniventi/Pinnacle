@@ -1,12 +1,13 @@
 import { motion, MotionProps } from "framer-motion";
+import { HTMLAttributes } from "react";
 
-type FadeInProps = MotionProps;
+type FadeInProps = MotionProps & HTMLAttributes<HTMLDivElement>;
 
 const FadeIn = ({ children, ...rest }: FadeInProps) => {
   return (
     <motion.div
       viewport={{ once: true, amount: "some" }}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{
         opacity: 1,
         y: 0,
