@@ -1,8 +1,8 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { motion, Variants } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MaterialSymbol } from "react-material-symbols";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./button";
 
 type HeaderLinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
@@ -44,6 +44,12 @@ const Header = () => {
     },
     closed: { opacity: 0, y: -30, transition: { duration: 0.2 } },
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   if (!desktop)
     return (

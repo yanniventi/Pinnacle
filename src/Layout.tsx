@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
+import Error from "./404";
 import About from "./About";
 import Contact from "./Contact";
 import Home from "./Home";
@@ -15,6 +16,7 @@ const Layout = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/*" element={<Error />} />
         </Routes>
       </Transition>
     </AnimatePresence>

@@ -41,7 +41,7 @@ const Transition = ({ children }: TransitionProps) => {
   const page: Variants = {
     initial: {
       opacity: 0,
-      y: 20,
+      y: 60,
     },
     animate: {
       opacity: 1,
