@@ -20,7 +20,6 @@ import {
   CarouselPrevious,
 } from "./components/ui/carousel";
 import Footer from "./components/ui/footer";
-import Header from "./components/ui/header";
 import TextButton from "./components/ui/textbutton";
 import { cn } from "./lib/utils";
 
@@ -271,7 +270,6 @@ function Home() {
       <Helmet>
         <title>Home · Pinnacle Accountants</title>
       </Helmet>
-      <Header />
       <main className="flex flex-col gap-32">
         <HomeSection className="flex min-h-svh w-full flex-col justify-center gap-32 py-48 md:py-64">
           <h1 className="w-10/12 max-w-3xl font-serif text-4xl font-bold text-slate-900 sm:text-5xl lg:text-7xl">

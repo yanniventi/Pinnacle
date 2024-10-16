@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import { AspectRatio } from "./components/ui/aspect-ratio";
 import Footer from "./components/ui/footer";
-import Header from "./components/ui/header";
 import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
 import TextButton from "./components/ui/textbutton";
@@ -23,7 +22,6 @@ const Contact = () => {
       <Helmet>
         <title>Contact · Pinnacle Accountants</title>
       </Helmet>
-      <Header />
       <main className="mx-auto flex max-w-[1920px] flex-col gap-64 px-6 md:px-16">
         <section className="mx-auto max-w-3xl pt-64">
           <div className="mb-24 w-full">
