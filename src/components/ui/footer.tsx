@@ -43,7 +43,7 @@ const Footer = ({ cta }: FooterProps) => {
       <footer
         className={cn([
           "mx-auto grid max-w-[1920px] grid-cols-12 px-6 pb-16 md:px-16",
-          !cta && "pt-32",
+          !cta && "pt-64",
         ])}
       >
         <div className="order-2 col-span-12 mb-4 flex flex-col gap-16 pr-12 lg:order-none lg:col-span-8 lg:gap-32">

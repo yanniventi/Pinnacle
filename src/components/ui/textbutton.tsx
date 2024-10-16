@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import * as React from "react";
 import { MaterialSymbol } from "react-material-symbols";
@@ -6,8 +5,9 @@ import { MaterialSymbol } from "react-material-symbols";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-type TextButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type TextButtonProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   size?: "default" | "large";
+  send?: boolean;
   to: string;
 };
 
@@ -26,35 +26,48 @@ const buttonVariants = cva(
   },
 );
 
-const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
-  ({ className, to, size = "default", children, ...props }, ref) => {
+const TextButton = React.forwardRef<HTMLAnchorElement, TextButtonProps>(
+  ({ className, to, send, size = "default", children, ...props }, ref) => {
     return (
-      <Slot
+      <Link
+        to={to}
         className={cn(buttonVariants({ size, className }))}
         ref={ref}
         {...props}
       >
-        <Link to={to}>
-          {children}
-          <div
-            className={cn([
-              size === "default" ? "size-6" : "size-8",
-              "overflow-hidden",
-            ])}
-          >
+        {children}
+        <div
+          className={cn([
+            size === "default" ? "size-6" : "size-8",
+            !send && "overflow-hidden",
+          ])}
+        >
+          {!send && (
+            <>
+              <MaterialSymbol
+                className="-translate-x-full translate-y-full transition-transform duration-300 group-hover/text-button:translate-x-0 group-hover/text-button:translate-y-0"
+                icon="arrow_outward"
+                size={size === "default" ? 24 : 32}
+                weight={size === "default" ? 400 : 500}
+              />
+              <MaterialSymbol
+                className="-translate-x-full translate-y-0 transition-transform duration-300 group-hover/text-button:-translate-y-full group-hover/text-button:translate-x-0"
+                icon="arrow_outward"
+                size={size === "default" ? 24 : 32}
+                weight={size === "default" ? 400 : 500}
+              />
+            </>
+          )}
+          {send && (
             <MaterialSymbol
-              className="-translate-x-full translate-y-full transition-transform duration-300 group-hover/text-button:translate-x-0 group-hover/text-button:translate-y-0"
-              icon="arrow_outward"
+              className="transition-transform duration-300 group-hover/text-button:translate-x-2"
+              icon="send"
               size={size === "default" ? 24 : 32}
+              weight={size === "default" ? 400 : 500}
             />
-            <MaterialSymbol
-              className="-translate-x-full translate-y-0 transition-transform duration-300 group-hover/text-button:-translate-y-full group-hover/text-button:translate-x-0"
-              icon="arrow_outward"
-              size={size === "default" ? 24 : 32}
-            />
-          </div>
-        </Link>
-      </Slot>
+          )}
+        </div>
+      </Link>
     );
   },
 );
