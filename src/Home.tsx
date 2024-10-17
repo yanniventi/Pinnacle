@@ -40,8 +40,10 @@ import Zalora from "./assets/zalora.png";
 
 import Alex from "./assets/Alex.png";
 import David from "./assets/David.jpg";
+import Emily from "./assets/Emily.png";
 import Rachel from "./assets/Rachel.png";
 import Samantha from "./assets/Samantha.png";
+import WenWei from "./assets/WenWei.png";
 
 import Cara from "./assets/Cara.png";
 import DavidLim from "./assets/David.png";
@@ -162,6 +164,20 @@ const testimonials = [
     quote:
       "“Pinnacle Accountants LLP has been an invaluable partner for our business. Their expertise in tax planning and compliance has saved us significant amounts of money and ensured we stay on top of all regulatory requirements. The team is professional, responsive, and always willing to go the extra mile to help us succeed.”",
     img: Samantha,
+  },
+  {
+    name: "Emily Wong",
+    position: "Senior Account Manager, HealthFirst Medical Group",
+    quote:
+      "“The proactive approach of Pinnacle Accountants LLP has been a game-changer for our business. Their team is always ahead of the curve, providing us with timely and actionable financial insights. This level of commitment and professionalism has made them a trusted partner for our company.”",
+    img: Emily,
+  },
+  {
+    name: "Kwok Wen Wei",
+    position: "Finance Director, Urban Developments Ltd",
+    quote:
+      "“The switch to cloud-based accounting with Pinnacle Accountants LLP was seamless and highly beneficial for our company. The ability to access real-time financial data has empowered us to make informed decisions quickly. The team's expertise and support have made a significant difference in our financial management.”",
+    img: WenWei,
   },
   {
     name: "David Lee",
@@ -392,8 +408,8 @@ function Home() {
           </div>
         </HomeSection>
         <section className="relative overflow-x-hidden bg-slate-900 py-32">
-          <div className="mx-auto flex max-w-[1920px] flex-col gap-32">
-            <div className="w-full">
+          <div className="flex flex-col gap-32">
+            <div className="mx-auto w-full max-w-[1920px] px-6 md:px-16">
               <MaskText
                 node="h2"
                 text="Trusted by Industry Leaders"
@@ -417,11 +433,8 @@ function Home() {
                 ))}
               </motion.div>
             </div>
-            <Carousel
-              opts={{ align: "center", loop: true }}
-              className="px-6 md:px-16"
-            >
-              <div className="mb-8 flex flex-wrap items-center justify-between gap-8 md:mb-16">
+            <Carousel opts={{ align: "center", loop: true }}>
+              <div className="mx-auto mb-8 flex w-full max-w-[1920px] flex-wrap items-center justify-between gap-8 px-6 md:mb-16 md:px-16">
                 <MaskText
                   node="h2"
                   text="What our clients say"
@@ -432,10 +445,10 @@ function Home() {
                   <CarouselNext />
                 </div>
               </div>
-              <CarouselContent>
+              <CarouselContent className="-ml-6 lg:-ml-24">
                 {testimonials.map((testimony) => (
                   <CarouselItem
-                    className="lg:basis-5/6 2xl:basis-2/3"
+                    className="basis-10/12 pl-6 lg:basis-5/6 lg:pl-24 xl:basis-3/5"
                     key={testimony.name}
                   >
                     <div className="flex h-full flex-col gap-12 bg-zinc-50 p-6 md:flex-row md:p-8">
@@ -447,7 +460,7 @@ function Home() {
                         />
                       </div>
                       <div className="flex flex-1 flex-col justify-between">
-                        <p className="mb-12 text-slate-900 md:text-xl">
+                        <p className="mb-12 text-slate-900 lg:text-xl">
                           {testimony.quote}
                         </p>
                         <div>
@@ -466,8 +479,8 @@ function Home() {
             </Carousel>
           </div>
         </section>
-        <HomeSection className="relative mx-0 max-w-none overflow-x-hidden">
-          <div className="mx-auto flex max-w-[1920px] flex-col gap-16">
+        <HomeSection className="relative mx-0 max-w-none overflow-x-hidden px-0 md:px-0">
+          <div className="mx-auto flex max-w-[1920px] flex-col gap-16 px-6 md:px-16">
             <div className="flex flex-wrap gap-16">
               <MaskText
                 node="h2"
