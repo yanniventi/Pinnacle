@@ -1,3 +1,4 @@
+import { EmblaCarouselType } from "embla-carousel";
 import {
   motion,
   useAnimationFrame,
@@ -8,12 +9,20 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { Fragment, HtmlHTMLAttributes, useRef, useState } from "react";
+import {
+  Fragment,
+  HtmlHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "./components/ui/aspect-ratio";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -283,6 +292,67 @@ function Home() {
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
 
+  const [api, setApi] = useState<CarouselApi>();
+  const tweenNodes = useRef<HTMLElement[]>([]);
+
+  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
+    tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
+      console.log(slideNode);
+      return slideNode.querySelector("#parallax") as HTMLElement;
+    });
+  }, []);
+  const doParallax = useCallback((emblaApi: EmblaCarouselType) => {
+    const engine = emblaApi.internalEngine();
+    const scrollProgress = emblaApi.scrollProgress();
+
+    const translateAmount = -7.5 + scrollProgress * 15;
+
+    console.log(translateAmount);
+
+    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+      const slidesInSnap = engine.slideRegistry[snapIndex];
+
+      slidesInSnap.forEach((slideIndex) => {
+        if (engine.options.loop) {
+          engine.slideLooper.loopPoints.forEach((loopItem) => {
+            const target = loopItem.target();
+
+            if (slideIndex === loopItem.index && target !== 0) {
+              const sign = Math.sign(target);
+
+              if (sign === -1) {
+                diffToTarget = scrollSnap - (1 + scrollProgress);
+              }
+              if (sign === 1) {
+                diffToTarget = scrollSnap + (1 - scrollProgress);
+              }
+            }
+          });
+        }
+
+        const translate = -5 + diffToTarget * -0.15 * 100;
+        const tweenNode = tweenNodes.current[slideIndex];
+        tweenNode.style.transform = `translateX(${translate}%)`;
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setTweenNodes(api);
+    doParallax(api);
+
+    api
+      .on("reInit", setTweenNodes)
+      .on("reInit", doParallax)
+      .on("scroll", doParallax)
+      .on("slideFocus", doParallax);
+  }, [api, doParallax, setTweenNodes]);
+
   return (
     <>
       <Helmet>
@@ -500,19 +570,24 @@ function Home() {
                 </div>
               </FadeIn>
             </div>
-            <Carousel opts={{ skipSnaps: true, align: "start" }}>
+            <Carousel
+              opts={{ skipSnaps: true, align: "start" }}
+              setApi={setApi}
+            >
               <CarouselContent className="-ml-16 flex">
                 {employees.map((employee) => (
                   <CarouselItem
                     className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-2/3 md:w-96 lg:basis-[30%]"
                     key={employee.name}
                   >
-                    <AspectRatio ratio={4 / 5}>
-                      <img
-                        src={employee.img}
-                        alt={employee.name}
-                        className="size-full object-cover"
-                      />
+                    <AspectRatio ratio={4 / 5} className="overflow-hidden">
+                      <div className="h-full w-[120%]" id="parallax">
+                        <img
+                          src={employee.img}
+                          alt={employee.name}
+                          className="size-full object-cover"
+                        />
+                      </div>
                     </AspectRatio>
                     <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
                       {employee.name}

@@ -1,10 +1,12 @@
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { EmblaCarouselType } from "embla-carousel";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import Splash from "./assets/about_splash.jpg";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "./components/ui/carousel";
@@ -23,6 +25,100 @@ import OurStory2 from "./assets/ourstory2.jpg";
 import OurStory3 from "./assets/ourstory3.jpg";
 import TextButton from "./components/ui/textbutton";
 
+const principles = [
+  {
+    principle: "Excellence At Competitive Prices",
+    description:
+      "We focus on delivering exceptional quality that aligns with your business needs, ensuring you get value without compromise. Unlike others, we get it right the first time, saving you time and resources.",
+  },
+  {
+    principle: "Your One-Stop Business Solution",
+    description:
+      "Our holistic services cover every step of your business journey, streamlining processes and maximizing efficiency, so you can focus on growth.",
+  },
+  {
+    principle: "A Trusted Business Partner",
+    description:
+      "We work alongside you, transforming insights into strategies that power your growth and elevate your competitive edge. We're more than a service provider—we're your strategic ally in success.",
+  },
+];
+const employees = [
+  {
+    name: "Lim Kuan Meng",
+    position: "Managing Parther",
+    img: KuanMeng,
+  },
+  {
+    name: "Cara Lee",
+    position: "Assurance & Advisory Partner",
+    img: Cara,
+  },
+  {
+    name: "David Lim",
+    position: "Assurance & Advisory Partner",
+    img: DavidLim,
+  },
+  {
+    name: "Lau Kah Eng",
+    position: "Assurance & Advisory Partner",
+    img: KahEng,
+  },
+  {
+    name: "Oh Lip How",
+    position: "Assurance & Advisory Partner",
+    img: LipHow,
+  },
+  {
+    name: "Kee Poh Ling",
+    position: "Director of Accounting & Corporate Secretarial Services",
+    img: PohLing,
+  },
+];
+
+const statistics = [
+  {
+    header: "Founded in:",
+    numbers: "2013",
+    description:
+      "Backed by a team of highly qualified professionals, Pinnacle is driven by a shared commitment to excellence.",
+  },
+  {
+    header: "Clients Served:",
+    numbers: "Over 300",
+    description:
+      "We provide comprehensive accounting, auditing, taxation, and advisory services to meet all compliance needs.",
+  },
+  {
+    header: "Industries Covered:",
+    numbers: "20+",
+    description:
+      "Our clients include private and public companies, sole proprietors, partnerships, and branches of foreign firms.",
+  },
+];
+const ourstory = [
+  {
+    image: OurStory3,
+    subheader: "Mission",
+    header: "Empowering Your Business with Expert Financial Guidance",
+    paragraph:
+      "For over two decades, Pinnacle Accountants LLP has been a trusted partner for businesses across Singapore, from emerging startups to established corporations. Our team of experienced accountants, tax advisors, and auditors is committed to helping businesses thrive by offering personalized financial solutions tailored to their unique needs. We go beyond standard accounting services, focusing on strategic planning and long-term financial success. When you partner with us, you're gaining access to expertise that ensures compliance, reduces risk, and enhances profitability.",
+  },
+  {
+    image: OurStory2,
+    subheader: "Assurance",
+    header: "Deep Expertise in Singapore's Regulatory Landscape",
+    paragraph:
+      "With an in-depth understanding of Singapore's complex business regulations, we offer a clear path through the ever-evolving financial and compliance requirements. At Pinnacle Accountants LLP, we specialize in navigating the regulations set forth by the Inland Revenue Authority of Singapore (IRAS) and the Accounting and Corporate Regulatory Authority (ACRA). Whether it's tax planning, corporate governance, or regulatory filings, our team ensures that your business stays compliant, freeing you to focus on growth and innovation.",
+  },
+  {
+    image: OurStory1,
+    subheader: "Innovation",
+    header: "Innovative Solutions for a Changing Business World",
+    paragraph:
+      "In today's fast-paced business environment, embracing innovation is key to staying competitive. At Pinnacle Accountants LLP, we leverage the latest technology, including cloud-based accounting software, to provide our clients with real-time insights into their financial health. This innovative approach allows us to offer proactive advice and strategies that help businesses adapt and succeed in an ever-changing market. With our forward-thinking mindset, we're not just managing your finances—we're helping you shape your future.",
+  },
+];
+
 function About() {
   const splash = useRef(null);
 
@@ -33,99 +129,67 @@ function About() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
 
-  const principles = [
-    {
-      principle: "Excellence At Competitive Prices",
-      description:
-        "We focus on delivering exceptional quality that aligns with your business needs, ensuring you get value without compromise. Unlike others, we get it right the first time, saving you time and resources.",
-    },
-    {
-      principle: "Your One-Stop Business Solution",
-      description:
-        "Our holistic services cover every step of your business journey, streamlining processes and maximizing efficiency, so you can focus on growth.",
-    },
-    {
-      principle: "A Trusted Business Partner",
-      description:
-        "We work alongside you, transforming insights into strategies that power your growth and elevate your competitive edge. We're more than a service provider—we're your strategic ally in success.",
-    },
-  ];
-  const employees = [
-    {
-      name: "Lim Kuan Meng",
-      position: "Managing Parther",
-      img: KuanMeng,
-    },
-    {
-      name: "Cara Lee",
-      position: "Assurance & Advisory Partner",
-      img: Cara,
-    },
-    {
-      name: "David Lim",
-      position: "Assurance & Advisory Partner",
-      img: DavidLim,
-    },
-    {
-      name: "Lau Kah Eng",
-      position: "Assurance & Advisory Partner",
-      img: KahEng,
-    },
-    {
-      name: "Oh Lip How",
-      position: "Assurance & Advisory Partner",
-      img: LipHow,
-    },
-    {
-      name: "Kee Poh Ling",
-      position: "Director of Accounting & Corporate Secretarial Services",
-      img: PohLing,
-    },
-  ];
+  const [api, setApi] = useState<CarouselApi>();
+  const tweenNodes = useRef<HTMLElement[]>([]);
 
-  const statistics = [
-    {
-      header: "Founded in:",
-      numbers: "2013",
-      description:
-        "Backed by a team of highly qualified professionals, Pinnacle is driven by a shared commitment to excellence.",
-    },
-    {
-      header: "Clients Served:",
-      numbers: "Over 300",
-      description:
-        "We provide comprehensive accounting, auditing, taxation, and advisory services to meet all compliance needs.",
-    },
-    {
-      header: "Industries Covered:",
-      numbers: "20+",
-      description:
-        "Our clients include private and public companies, sole proprietors, partnerships, and branches of foreign firms.",
-    },
-  ];
-  const ourstory = [
-    {
-      image: OurStory3,
-      subheader: "Mission",
-      header: "Empowering Your Business with Expert Financial Guidance",
-      paragraph:
-        "For over two decades, Pinnacle Accountants LLP has been a trusted partner for businesses across Singapore, from emerging startups to established corporations. Our team of experienced accountants, tax advisors, and auditors is committed to helping businesses thrive by offering personalized financial solutions tailored to their unique needs. We go beyond standard accounting services, focusing on strategic planning and long-term financial success. When you partner with us, you're gaining access to expertise that ensures compliance, reduces risk, and enhances profitability.",
-    },
-    {
-      image: OurStory2,
-      subheader: "Assurance",
-      header: "Deep Expertise in Singapore's Regulatory Landscape",
-      paragraph:
-        "With an in-depth understanding of Singapore's complex business regulations, we offer a clear path through the ever-evolving financial and compliance requirements. At Pinnacle Accountants LLP, we specialize in navigating the regulations set forth by the Inland Revenue Authority of Singapore (IRAS) and the Accounting and Corporate Regulatory Authority (ACRA). Whether it's tax planning, corporate governance, or regulatory filings, our team ensures that your business stays compliant, freeing you to focus on growth and innovation.",
-    },
-    {
-      image: OurStory1,
-      subheader: "Innovation",
-      header: "Innovative Solutions for a Changing Business World",
-      paragraph:
-        "In today's fast-paced business environment, embracing innovation is key to staying competitive. At Pinnacle Accountants LLP, we leverage the latest technology, including cloud-based accounting software, to provide our clients with real-time insights into their financial health. This innovative approach allows us to offer proactive advice and strategies that help businesses adapt and succeed in an ever-changing market. With our forward-thinking mindset, we're not just managing your finances—we're helping you shape your future.",
-    },
-  ];
+  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
+    tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
+      console.log(slideNode);
+      return slideNode.querySelector("#parallax") as HTMLElement;
+    });
+  }, []);
+  const doParallax = useCallback((emblaApi: EmblaCarouselType) => {
+    const engine = emblaApi.internalEngine();
+    const scrollProgress = emblaApi.scrollProgress();
+
+    const translateAmount = -7.5 + scrollProgress * 15;
+
+    console.log(translateAmount);
+
+    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+      const slidesInSnap = engine.slideRegistry[snapIndex];
+
+      slidesInSnap.forEach((slideIndex) => {
+        if (engine.options.loop) {
+          engine.slideLooper.loopPoints.forEach((loopItem) => {
+            const target = loopItem.target();
+
+            if (slideIndex === loopItem.index && target !== 0) {
+              const sign = Math.sign(target);
+
+              if (sign === -1) {
+                diffToTarget = scrollSnap - (1 + scrollProgress);
+              }
+              if (sign === 1) {
+                diffToTarget = scrollSnap + (1 - scrollProgress);
+              }
+            }
+          });
+        }
+
+        const translate = -5 + diffToTarget * -0.15 * 100;
+        const tweenNode = tweenNodes.current[slideIndex];
+        tweenNode.style.transform = `translateX(${translate}%)`;
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setTweenNodes(api);
+    doParallax(api);
+
+    api
+      .on("reInit", setTweenNodes)
+      .on("reInit", doParallax)
+      .on("scroll", doParallax)
+      .on("slideFocus", doParallax);
+  }, [api, doParallax, setTweenNodes]);
+
   return (
     <>
       <Helmet>
@@ -320,19 +384,24 @@ function About() {
               </FadeIn>
             </div>
 
-            <Carousel opts={{ skipSnaps: true, align: "start" }}>
+            <Carousel
+              opts={{ skipSnaps: true, align: "start" }}
+              setApi={setApi}
+            >
               <CarouselContent className="-ml-16 flex">
                 {employees.map((employee) => (
                   <CarouselItem
                     className="w-48 basis-4/5 pl-16 sm:w-64 sm:basis-2/3 md:w-96 lg:basis-[30%]"
                     key={employee.name}
                   >
-                    <AspectRatio ratio={4 / 5}>
-                      <img
-                        src={employee.img}
-                        alt={employee.name}
-                        className="size-full object-cover"
-                      />
+                    <AspectRatio ratio={4 / 5} className="overflow-hidden">
+                      <div className="h-full w-[120%]" id="parallax">
+                        <img
+                          src={employee.img}
+                          alt={employee.name}
+                          className="size-full object-cover"
+                        />
+                      </div>
                     </AspectRatio>
                     <p className="mb-2 mt-6 font-serif text-4xl font-medium text-slate-900">
                       {employee.name}
