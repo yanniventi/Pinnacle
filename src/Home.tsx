@@ -297,17 +297,12 @@ function Home() {
 
   const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      console.log(slideNode);
       return slideNode.querySelector("#parallax") as HTMLElement;
     });
   }, []);
   const doParallax = useCallback((emblaApi: EmblaCarouselType) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
-
-    const translateAmount = -7.5 + scrollProgress * 15;
-
-    console.log(translateAmount);
 
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;

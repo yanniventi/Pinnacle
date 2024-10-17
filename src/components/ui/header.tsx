@@ -1,7 +1,6 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import { MaterialSymbol } from "react-material-symbols";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./button";
 
@@ -89,11 +88,11 @@ const Header = () => {
           >
             {open ? (
               <motion.span key="close" {...anim} className="size-6">
-                <MaterialSymbol icon="close" size={24} />
+                <span className="material-symbols-outlined">close</span>
               </motion.span>
             ) : (
               <motion.span key="menu" {...anim} className="size-6">
-                <MaterialSymbol icon="menu" size={24} />
+                <span className="material-symbols-outlined">menu</span>
               </motion.span>
             )}
           </Button>

@@ -134,17 +134,12 @@ function About() {
 
   const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      console.log(slideNode);
       return slideNode.querySelector("#parallax") as HTMLElement;
     });
   }, []);
   const doParallax = useCallback((emblaApi: EmblaCarouselType) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
-
-    const translateAmount = -7.5 + scrollProgress * 15;
-
-    console.log(translateAmount);
 
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;
@@ -302,7 +297,7 @@ function About() {
                   </div>
                   <p className="text-slate-300">{story.paragraph}</p>
                   {index !== 0 && (
-                    <TextButton to="" className="text-slate-200">
+                    <TextButton to="" className="fill-slate-200 text-slate-200">
                       Learn more
                     </TextButton>
                   )}
