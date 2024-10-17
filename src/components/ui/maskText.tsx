@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { HTMLAttributes, useRef } from "react";
+import { Fragment, HTMLAttributes, useRef } from "react";
 
 type MaskTextProps = HTMLAttributes<HTMLParagraphElement> & {
   text: string;
@@ -33,10 +33,9 @@ const MaskText = ({ text, node, className }: MaskTextProps) => {
     <Slot ref={body} className={className}>
       {phrases.map((phrase, index) => {
         return (
-          <>
-            <span className="relative inline-flex pb-2" key={index}>
+          <Fragment key={index}>
+            <span className="relative inline-flex pb-2">
               <motion.span
-                key={index}
                 custom={index}
                 variants={animation}
                 initial="initial"
@@ -45,7 +44,7 @@ const MaskText = ({ text, node, className }: MaskTextProps) => {
                 {phrase}
               </motion.span>
             </span>{" "}
-          </>
+          </Fragment>
         );
       })}
     </Slot>
